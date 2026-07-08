@@ -1,0 +1,37 @@
+{
+  "sources": [
+    {
+      "name": "ssh-orchestrator",
+      "path": "/home/namerico/meus-slides/sources/SSH_Orchestrator",
+      "type": "projeto",
+      "linkedAt": "2026-06-17T01:05:00.000Z"
+    },
+    {
+      "name": "algoritmos-logica-2",
+      "path": "/home/namerico/Documentos/Material Faculdade Católica/ALGORÍTIMO E LÓGICA DE PROGRAMAÇÃO II.pdf",
+      "type": "pdf",
+      "linkedAt": "2026-07-07T20:20:30.000Z"
+    }
+  ],
+  "decks": [
+    {
+      "name": "agente-linux-shell",
+      "template": "aula-capitulo",
+      "theme": "neon-emerald",
+      "createdAt": "2026-06-17T01:05:00.000Z"
+    },
+    {
+      "name": "algoritmos-logica-2",
+      "template": "aula-capitulo",
+      "theme": "mira-dark",
+      "createdAt": "2026-07-07T20:20:30.000Z"
+    }
+  ],
+  "version": "0.1.19",
+  "projectName": "meus-slides",
+  "userName": "Namerico",
+  "chatLanguage": "pt-br",
+  "defaultTheme": "mira-dark",
+  "installedAt": "2026-06-16T02:02:09.170Z",
+  "updatedAt": "2026-06-16T02:02:09.170Z"
+}
