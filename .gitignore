@@ -1,0 +1,7 @@
+# Vídeos de template (pesados, não necessários online)
+mira-templates/videos_header/
+
+# Submodules não rastreados
+decks/apresentacao-3d/
+decks/mesa-tatica/
+sources/SSH_Orchestrator/
