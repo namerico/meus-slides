@@ -204,6 +204,32 @@
             border-color: #FF904D;
             color: #fff;
         }
+
+        /* === ANIMAÇÕES DE LOOP PERPÉTUO (REGRA ZERO MIRA) === */
+        @keyframes float-icon {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(4deg); }
+        }
+        .icon-container i, .glass-card i[data-lucide] {
+            animation: float-icon 4s ease-in-out infinite;
+        }
+
+        @keyframes card-shimmer {
+            0% { border-color: rgba(255, 255, 255, 0.1); box-shadow: 0 10px 30px rgba(255, 144, 77, 0.15); }
+            50% { border-color: rgba(255, 144, 77, 0.35); box-shadow: 0 10px 40px rgba(255, 144, 77, 0.3); }
+            100% { border-color: rgba(255, 255, 255, 0.1); box-shadow: 0 10px 30px rgba(255, 144, 77, 0.15); }
+        }
+        .glass-card {
+            animation: card-shimmer 6s ease-in-out infinite;
+        }
+
+        @keyframes text-glow-pulse {
+            0%, 100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.1); }
+            50% { text-shadow: 0 0 25px rgba(255, 144, 77, 0.45); }
+        }
+        h1, h3 {
+            animation: text-glow-pulse 6s ease-in-out infinite;
+        }
     </style>
 </head>
 
@@ -404,53 +430,52 @@
         </div>
     </div>
     <p class="text-white/70 mb-6 leading-relaxed max-w-3xl">
-        Estruturas condicionais são o cérebro do seu código. Veja as 4 variantes do Python e quando usar cada uma.
+        Estruturas condicionais são o cérebro do seu código. Clique nos blocos à esquerda para visualizar como a tomada de decisão ocorre no fluxo de execução do D3.js.
     </p>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="bg-black/40 rounded-xl p-5 border border-white/10">
-            <div class="flex items-center gap-2 mb-3">
-                <i data-lucide="chevron-right" class="w-4 h-4 primary-color"></i>
-                <span class="text-[#FF904D] font-bold text-sm">Desvio Simples</span>
-            </div>
-            <pre class="font-mono text-xs text-green-300 leading-relaxed">if nota &gt;= 7:
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Coluna da Esquerda: Códigos Clicáveis -->
+        <div class="space-y-4 flex flex-col justify-center">
+            <div class="bg-black/40 rounded-xl p-4 border border-white/10 hover:border-[#FF904D]/50 transition-all cursor-pointer transform hover:scale-[1.02]" onclick="updateD3Flow('simples')">
+                <div class="flex items-center gap-2 mb-2">
+                    <i data-lucide="chevron-right" class="w-4 h-4 primary-color animate-pulse"></i>
+                    <span class="text-[#FF904D] font-bold text-sm">Desvio Simples (if)</span>
+                </div>
+                <pre class="font-mono text-xs text-green-300">if nota >= 7:
     print("Aprovado")</pre>
-            <p class="text-white/50 text-xs mt-2">Executa apenas se verdadeiro</p>
-        </div>
-        <div class="bg-black/40 rounded-xl p-5 border border-white/10">
-            <div class="flex items-center gap-2 mb-3">
-                <i data-lucide="split" class="w-4 h-4 primary-color"></i>
-                <span class="text-[#FF904D] font-bold text-sm">Desvio Composto</span>
+                <p class="text-white/40 text-[10px] mt-1">Executa apenas se verdadeiro</p>
             </div>
-            <pre class="font-mono text-xs text-green-300 leading-relaxed">if nota &gt;= 7:
+            
+            <div class="bg-black/40 rounded-xl p-4 border border-[#FF904D]/40 hover:border-[#FF904D] transition-all cursor-pointer transform hover:scale-[1.02]" onclick="updateD3Flow('composto')">
+                <div class="flex items-center gap-2 mb-2">
+                    <i data-lucide="split" class="w-4 h-4 primary-color animate-pulse"></i>
+                    <span class="text-[#FF904D] font-bold text-sm">Desvio Composto (if-else)</span>
+                </div>
+                <pre class="font-mono text-xs text-green-300">if nota >= 7:
     print("Aprovado")
 else:
     print("Reprovado")</pre>
-            <p class="text-white/50 text-xs mt-2">Sempre executa um dos ramos</p>
-        </div>
-        <div class="bg-black/40 rounded-xl p-5 border border-white/10">
-            <div class="flex items-center gap-2 mb-3">
-                <i data-lucide="layers" class="w-4 h-4 primary-color"></i>
-                <span class="text-[#FF904D] font-bold text-sm">Aninhado</span>
+                <p class="text-white/40 text-[10px] mt-1">Sempre executa um dos ramos</p>
             </div>
-            <pre class="font-mono text-xs text-green-300 leading-relaxed">if nota &gt;= 7:
-    if frequencia &gt;= 75:
-        print("Aprovado")
-    else:
-        print("Falta")</pre>
-            <p class="text-white/50 text-xs mt-2">Condição dentro de condição</p>
-        </div>
-        <div class="bg-black/40 rounded-xl p-5 border border-white/10">
-            <div class="flex items-center gap-2 mb-3">
-                <i data-lucide="list" class="w-4 h-4 primary-color"></i>
-                <span class="text-[#FF904D] font-bold text-sm">Múltipla Escolha</span>
-            </div>
-            <pre class="font-mono text-xs text-green-300 leading-relaxed">if nota &gt;= 9:
+
+            <div class="bg-black/40 rounded-xl p-4 border border-white/10 hover:border-[#FF904D]/50 transition-all cursor-pointer transform hover:scale-[1.02]" onclick="updateD3Flow('multiplo')">
+                <div class="flex items-center gap-2 mb-2">
+                    <i data-lucide="list" class="w-4 h-4 primary-color animate-pulse"></i>
+                    <span class="text-[#FF904D] font-bold text-sm">Múltipla Escolha (if-elif-else)</span>
+                </div>
+                <pre class="font-mono text-xs text-green-300">if nota >= 9:
     print("A")
-elif nota &gt;= 7:
+elif nota >= 7:
     print("B")
 else:
     print("C")</pre>
-            <p class="text-white/50 text-xs mt-2">Múltiplos caminhos possíveis</p>
+                <p class="text-white/40 text-[10px] mt-1">Múltiplos caminhos possíveis</p>
+            </div>
+        </div>
+        
+        <!-- Coluna da Direita: Fluxo Interativo D3 -->
+        <div class="bg-black/50 rounded-xl p-4 border border-white/10 flex flex-col items-center justify-center min-h-[320px] relative shadow-[inset_0_0_20px_rgba(0,0,0,0.6)]">
+            <span class="text-[10px] uppercase tracking-wider text-white/30 absolute top-3 right-4">Fluxo D3.js Vivo</span>
+            <div id="d3-decision-flow" class="w-full h-[280px]"></div>
         </div>
     </div>
 </div>
@@ -1011,6 +1036,199 @@ print(calcular_media(minhas_notas))  <span class="text-white/40"># → 7.75</spa
             });
         }
 
+        // === VISUALIZAÇÃO INTERATIVA D3.JS (MIRA VIVO FLOW) ===
+        let d3FlowType = 'composto';
+        let d3FlowSvg = null;
+
+        function initD3Flow() {
+            const container = document.getElementById('d3-decision-flow');
+            if (!container) return;
+            container.innerHTML = '';
+            
+            const width = container.clientWidth || 400;
+            const height = container.clientHeight || 280;
+            
+            const svg = d3.select('#d3-decision-flow')
+                .append('svg')
+                .attr('width', '100%')
+                .attr('height', '100%')
+                .attr('viewBox', `0 0 ${width} ${height}`)
+                .attr('preserveAspectRatio', 'xMidYMid meet');
+                
+            d3FlowSvg = svg;
+            updateD3FlowGraphic(width, height);
+        }
+
+        function updateD3Flow(type) {
+            d3FlowType = type;
+            const container = document.getElementById('d3-decision-flow');
+            if (!container) return;
+            const width = container.clientWidth || 400;
+            const height = container.clientHeight || 280;
+            updateD3FlowGraphic(width, height);
+            
+            // Destaque visual no item selecionado na esquerda
+            document.querySelectorAll('[onclick^="updateD3Flow"]').forEach(el => {
+                el.classList.remove('border-[#FF904D]', 'border-[#FF904D]/40');
+                el.classList.add('border-white/10');
+            });
+            const selected = event.currentTarget;
+            selected.classList.remove('border-white/10');
+            selected.classList.add('border-[#FF904D]');
+        }
+
+        function updateD3FlowGraphic(width, height) {
+            if (!d3FlowSvg) return;
+            d3FlowSvg.selectAll('*').remove();
+            
+            let nodes = [];
+            let links = [];
+            const cx = width / 2;
+            
+            if (d3FlowType === 'simples') {
+                nodes = [
+                    { id: 'start', label: 'Início', x: cx, y: 30, color: '#a78bfa' },
+                    { id: 'check', label: 'nota >= 7?', x: cx, y: 120, color: '#FF904D', shape: 'diamond' },
+                    { id: 'true_path', label: 'Aprovado', x: cx, y: 230, color: '#10b981' }
+                ];
+                links = [
+                    { source: 'start', target: 'check', label: '' },
+                    { source: 'check', target: 'true_path', label: 'Sim' }
+                ];
+            } else if (d3FlowType === 'composto') {
+                nodes = [
+                    { id: 'start', label: 'Início', x: cx, y: 30, color: '#a78bfa' },
+                    { id: 'check', label: 'nota >= 7?', x: cx, y: 120, color: '#FF904D', shape: 'diamond' },
+                    { id: 'true_path', label: 'Aprovado', x: cx - 80, y: 220, color: '#10b981' },
+                    { id: 'false_path', label: 'Reprovado', x: cx + 80, y: 220, color: '#ef4444' }
+                ];
+                links = [
+                    { source: 'start', target: 'check', label: '' },
+                    { source: 'check', target: 'true_path', label: 'Sim' },
+                    { source: 'check', target: 'false_path', label: 'Não' }
+                ];
+            } else { // multiplo
+                nodes = [
+                    { id: 'start', label: 'Início', x: cx, y: 20, color: '#a78bfa' },
+                    { id: 'check1', label: 'nota >= 9?', x: cx, y: 80, color: '#FF904D', shape: 'diamond' },
+                    { id: 'pathA', label: 'Nota A', x: cx - 100, y: 150, color: '#10b981' },
+                    { id: 'check2', label: 'nota >= 7?', x: cx + 40, y: 150, color: '#FF904D', shape: 'diamond' },
+                    { id: 'pathB', label: 'Nota B', x: cx - 10, y: 230, color: '#3b82f6' },
+                    { id: 'pathC', label: 'Nota C', x: cx + 95, y: 230, color: '#ef4444' }
+                ];
+                links = [
+                    { source: 'start', target: 'check1', label: '' },
+                    { source: 'check1', target: 'pathA', label: 'Sim' },
+                    { source: 'check1', target: 'check2', label: 'Não' },
+                    { source: 'check2', target: 'pathB', label: 'Sim' },
+                    { source: 'check2', target: 'pathC', label: 'Não' }
+                ];
+            }
+            
+            // Desenhar links
+            const linkSel = d3FlowSvg.selectAll('.flow-link')
+                .data(links)
+                .enter()
+                .append('g')
+                .attr('class', 'flow-link');
+                
+            linkSel.append('line')
+                .attr('x1', d => nodes.find(n => n.id === d.source).x)
+                .attr('y1', d => nodes.find(n => n.id === d.source).y)
+                .attr('x2', d => nodes.find(n => n.id === d.target).x)
+                .attr('y2', d => nodes.find(n => n.id === d.target).y)
+                .attr('stroke', '#ffffff')
+                .attr('stroke-width', 2)
+                .attr('opacity', 0.2);
+                
+            // Animar pulsos contínuos (loop perpétuo da Regra Zero)
+            linkSel.append('circle')
+                .attr('r', 5)
+                .attr('fill', '#FF904D')
+                .style('filter', 'drop-shadow(0 0 4px #FF904D)')
+                .each(function(d) {
+                    const circle = d3.select(this);
+                    const src = nodes.find(n => n.id === d.source);
+                    const tgt = nodes.find(n => n.id === d.target);
+                    
+                    function repeat() {
+                        circle.attr('cx', src.x)
+                              .attr('cy', src.y)
+                              .attr('opacity', 1)
+                              .transition()
+                              .duration(1200 + Math.random() * 400)
+                              .ease(d3.easeLinear)
+                              .attr('cx', tgt.x)
+                              .attr('cy', tgt.y)
+                              .transition()
+                              .duration(100)
+                              .attr('opacity', 0)
+                              .on('end', repeat);
+                    }
+                    repeat();
+                });
+
+            // Rótulos Sim/Não nas linhas
+            linkSel.append('text')
+                .attr('x', d => {
+                    const src = nodes.find(n => n.id === d.source);
+                    const tgt = nodes.find(n => n.id === d.target);
+                    return (src.x + tgt.x) / 2 + 10;
+                })
+                .attr('y', d => {
+                    const src = nodes.find(n => n.id === d.source);
+                    const tgt = nodes.find(n => n.id === d.target);
+                    return (src.y + tgt.y) / 2 - 5;
+                })
+                .attr('fill', '#ffffff')
+                .attr('font-size', '9px')
+                .attr('opacity', 0.7)
+                .attr('text-anchor', 'middle')
+                .text(d => d.label);
+
+            // Desenhar os nós
+            const nodeSel = d3FlowSvg.selectAll('.flow-node')
+                .data(nodes)
+                .enter()
+                .append('g')
+                .attr('class', 'flow-node')
+                .attr('transform', d => `translate(${d.x}, ${d.y})`);
+                
+            nodeSel.each(function(d) {
+                const el = d3.select(this);
+                if (d.shape === 'diamond') {
+                    el.append('rect')
+                      .attr('x', -24)
+                      .attr('y', -24)
+                      .attr('width', 48)
+                      .attr('height', 48)
+                      .attr('transform', 'rotate(45)')
+                      .attr('fill', 'rgba(0,0,0,0.85)')
+                      .attr('stroke', d.color)
+                      .attr('stroke-width', 2)
+                      .attr('rx', 4);
+                } else {
+                    el.append('rect')
+                      .attr('x', -40)
+                      .attr('y', -14)
+                      .attr('width', 80)
+                      .attr('height', 28)
+                      .attr('fill', 'rgba(0,0,0,0.85)')
+                      .attr('stroke', d.color)
+                      .attr('stroke-width', 2)
+                      .attr('rx', 6);
+                }
+                
+                el.append('text')
+                  .attr('dy', '3px')
+                  .attr('fill', '#ffffff')
+                  .attr('font-size', '9px')
+                  .attr('font-weight', 'bold')
+                  .attr('text-anchor', 'middle')
+                  .text(d.label);
+            });
+        }
+
         // === Configuração de Modo Tela Cheia (Wrappers) ===
         function setupFullScreenWrappers() {
             const main = document.querySelector('main');
@@ -1037,6 +1255,7 @@ print(calcular_media(minhas_notas))  <span class="text-white/40"># → 7.75</spa
             setupFullScreenWrappers();
             setTimeout(animateCounters, 500);
             setTimeout(animateProgressBars, 600);
+            setTimeout(initD3Flow, 800);
 
             const headerBtn = document.getElementById('header-next-btn');
             if (headerBtn) {
@@ -1068,7 +1287,10 @@ print(calcular_media(minhas_notas))  <span class="text-white/40"># → 7.75</spa
                 }
             });
 
-            window.addEventListener('resize', setupFullScreenWrappers);
+            window.addEventListener('resize', () => {
+                setupFullScreenWrappers();
+                initD3Flow();
+            });
         });
     </script>
 </body>

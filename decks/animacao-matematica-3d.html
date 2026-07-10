@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2 + 2 = 4 — Animação 3D</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Inter:wght@300;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: radial-gradient(ellipse at 30% 40%, #0a1628 0%, #000510 60%, #000000 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ====== ESTRELAS DE FUNDO ====== */
+  .stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    animation: twinkle var(--d, 3s) infinite alternate ease-in-out;
+    opacity: var(--o, 0.4);
+  }
+  @keyframes twinkle {
+    from { opacity: var(--o, 0.4); transform: scale(1); }
+    to   { opacity: calc(var(--o, 0.4) * 0.2); transform: scale(0.6); }
+  }
+
+  /* ====== CENA 3D ====== */
+  #cena {
+    perspective: 900px;
+    perspective-origin: 50% 45%;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  /* ====== QUADRO NEGRO 3D ====== */
+  #quadro-wrapper {
+    transform-style: preserve-3d;
+    animation: flutuarQuadro 6s ease-in-out infinite;
+  }
+  @keyframes flutuarQuadro {
+    0%,100% { transform: rotateX(4deg) rotateY(-6deg) translateY(0px); }
+    25%      { transform: rotateX(2deg) rotateY(4deg)  translateY(-10px); }
+    50%      { transform: rotateX(5deg) rotateY(6deg)  translateY(-4px); }
+    75%      { transform: rotateX(1deg) rotateY(-4deg) translateY(-12px); }
+  }
+
+  #quadro {
+    width: clamp(320px, 70vw, 680px);
+    height: clamp(220px, 40vw, 420px);
+    background: linear-gradient(135deg, #1a3a1a 0%, #0f2a0f 40%, #162816 100%);
+    border-radius: 12px;
+    border: 14px solid #5a3a1a;
+    box-shadow:
+      0 0 0 3px #8B5A2B,
+      8px 8px 0 #3a2010,
+      0 30px 80px rgba(0,0,0,0.7),
+      inset 0 0 40px rgba(0,0,0,0.4),
+      inset 0 0 80px rgba(20,60,20,0.2);
+    position: relative;
+    transform-style: preserve-3d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Textura do quadro */
+  #quadro::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(255,255,255,0.012) 28px, rgba(255,255,255,0.012) 29px),
+      repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(255,255,255,0.008) 28px, rgba(255,255,255,0.008) 29px);
+    border-radius: 4px;
+  }
+
+  /* Moldura lateral 3D */
+  #quadro::after {
+    content: '';
+    position: absolute;
+    right: -18px; top: 8px;
+    width: 14px;
+    height: calc(100% - 4px);
+    background: linear-gradient(to right, #3a2010, #5a3a1a);
+    transform: rotateY(-90deg) translateZ(-7px);
+    transform-origin: left center;
+  }
+
+  /* ====== EQUAÇÃO ====== */
+  #equacao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(8px, 3vw, 30px);
+    position: relative;
+    z-index: 2;
+  }
+
+  .digito {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(52px, 12vw, 130px);
+    font-weight: 700;
+    color: rgba(255,255,255,0.95);
+    text-shadow:
+      0 0 20px rgba(255,255,255,0.4),
+      2px 3px 0 rgba(0,0,0,0.4);
+    opacity: 0;
+    transform: rotateY(90deg) scale(0.3);
+    transition: none;
+    display: inline-block;
+    filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));
+    letter-spacing: -2px;
+  }
+
+  .digito.dois-a  { color: #FFE566; text-shadow: 0 0 25px rgba(255,229,102,0.6), 2px 3px 0 rgba(0,0,0,0.4); }
+  .digito.mais    { color: #FF6B6B; text-shadow: 0 0 25px rgba(255,107,107,0.6), 2px 3px 0 rgba(0,0,0,0.4); }
+  .digito.dois-b  { color: #6BFF9E; text-shadow: 0 0 25px rgba(107,255,158,0.6), 2px 3px 0 rgba(0,0,0,0.4); }
+  .digito.igual   { color: #FF9B4D; text-shadow: 0 0 25px rgba(255,155,77,0.6),  2px 3px 0 rgba(0,0,0,0.4); }
+  .digito.quatro  { color: #fff;    text-shadow: 0 0 40px rgba(255,255,255,0.9), 0 0 80px rgba(255,255,255,0.4), 2px 3px 0 rgba(0,0,0,0.4); font-size: clamp(60px, 14vw, 150px); }
+
+  /* ====== ANIMAÇÕES DE ENTRADA ====== */
+  @keyframes entradaFlipY {
+    0%   { opacity: 0; transform: rotateY(90deg) scale(0.2); }
+    60%  { opacity: 1; transform: rotateY(-12deg) scale(1.08); }
+    80%  { transform: rotateY(6deg) scale(0.97); }
+    100% { opacity: 1; transform: rotateY(0deg) scale(1); }
+  }
+  @keyframes entradaFlipX {
+    0%   { opacity: 0; transform: rotateX(-90deg) scale(0.2); }
+    60%  { opacity: 1; transform: rotateX(12deg) scale(1.08); }
+    80%  { transform: rotateX(-6deg) scale(0.97); }
+    100% { opacity: 1; transform: rotateX(0deg) scale(1); }
+  }
+  @keyframes entradaZoom {
+    0%   { opacity: 0; transform: scale(0) rotate(-15deg); }
+    50%  { opacity: 1; transform: scale(1.15) rotate(5deg); }
+    75%  { transform: scale(0.95) rotate(-3deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  }
+  @keyframes entradaSlideUp {
+    0%   { opacity: 0; transform: translateY(60px) rotateX(60deg); }
+    60%  { opacity: 1; transform: translateY(-8px) rotateX(-5deg); }
+    100% { opacity: 1; transform: translateY(0) rotateX(0deg); }
+  }
+
+  /* Celebração do resultado */
+  @keyframes celebracao {
+    0%   { opacity: 0; transform: scale(0) rotateY(360deg) rotateX(180deg); }
+    40%  { opacity: 1; transform: scale(1.4) rotateY(20deg) rotateX(-10deg); }
+    60%  { transform: scale(0.9) rotateY(-10deg) rotateX(5deg); }
+    80%  { transform: scale(1.1) rotateY(5deg); }
+    100% { opacity: 1; transform: scale(1) rotateY(0deg) rotateX(0deg); }
+  }
+
+  /* Pulsar depois que aparece */
+  @keyframes pulsarBrilho {
+    0%,100% { filter: drop-shadow(0 0 8px currentColor) brightness(1); }
+    50%      { filter: drop-shadow(0 0 25px currentColor) brightness(1.3); }
+  }
+
+  /* ====== INSTRUMENTOS FLUTUANTES ====== */
+  .instrumento {
+    position: fixed;
+    font-size: clamp(30px, 5vw, 70px);
+    opacity: 0.12;
+    pointer-events: none;
+    animation: flutuar var(--dur, 8s) ease-in-out infinite;
+    transform-origin: center;
+    z-index: 1;
+    filter: blur(0.5px);
+  }
+  @keyframes flutuar {
+    0%,100% { transform: translate(0,0) rotate(0deg) scale(1); }
+    25%      { transform: translate(var(--mx,10px), var(--my,-15px)) rotate(8deg) scale(1.05); }
+    50%      { transform: translate(var(--mx2,-8px), var(--my2,10px)) rotate(-5deg) scale(0.95); }
+    75%      { transform: translate(var(--mx3,12px), var(--my3,-8px)) rotate(12deg) scale(1.02); }
+  }
+
+  /* ====== BARRA INFERIOR ====== */
+  #barra {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    padding: 10px 20px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    z-index: 99;
+  }
+  .btn {
+    background: rgba(255,255,255,0.07);
+    color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 7px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+  .btn:hover { background: rgba(255,200,0,0.15); border-color: #FFD700; color: #FFD700; }
+
+  #label-etapa {
+    color: rgba(255,255,255,0.4);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    min-width: 160px;
+    text-align: center;
+  }
+
+  /* ====== FOGOS / CONFETTI no resultado ====== */
+  .confetti-piece {
+    position: fixed;
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    pointer-events: none;
+    z-index: 50;
+    animation: confettiCair var(--dur, 2.5s) ease-in forwards;
+  }
+  @keyframes confettiCair {
+    0%   { transform: translate(0,0) rotate(0deg); opacity: 1; }
+    100% { transform: translate(var(--vx, 30px), 100vh) rotate(var(--rot, 360deg)); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Estrelas -->
+<div class="stars" id="stars"></div>
+
+<!-- Instrumentos flutuantes -->
+<div class="instrumento" style="top:8%;left:5%;--dur:9s;--mx:15px;--my:-20px;--mx2:-10px;--my2:12px;--mx3:8px;--my3:-15px">📐</div>
+<div class="instrumento" style="top:15%;right:7%;--dur:7s;--mx:-12px;--my:18px;--mx2:10px;--my2:-8px;--mx3:-15px;--my3:20px">📏</div>
+<div class="instrumento" style="bottom:20%;left:8%;--dur:11s;--mx:8px;--my:-12px;--mx2:-14px;--my2:8px;--mx3:10px;--my3:-18px">🔢</div>
+<div class="instrumento" style="bottom:15%;right:6%;--dur:8.5s;--mx:-10px;--my:15px;--mx2:12px;--my2:-10px;--mx3:-8px;--my3:14px">➕</div>
+<div class="instrumento" style="top:50%;left:2%;--dur:10s;font-size:40px;--mx:6px;--my:-10px;--mx2:-8px;--my2:6px;--mx3:10px;--my3:-12px">∑</div>
+<div class="instrumento" style="top:45%;right:3%;--dur:12s;font-size:38px;--mx:-8px;--my:14px;--mx2:10px;--my2:-8px;--mx3:-12px;--my3:10px">√</div>
+<div class="instrumento" style="top:70%;left:18%;--dur:9.5s;font-size:32px;opacity:0.08">π</div>
+<div class="instrumento" style="top:20%;left:40%;--dur:13s;font-size:28px;opacity:0.06">∞</div>
+
+<!-- Cena 3D principal -->
+<div id="cena">
+  <div id="quadro-wrapper">
+    <div id="quadro">
+      <div id="equacao">
+        <span class="digito dois-a" id="d1">2</span>
+        <span class="digito mais"   id="d2">+</span>
+        <span class="digito dois-b" id="d3">2</span>
+        <span class="digito igual"  id="d4">=</span>
+        <span class="digito quatro" id="d5">4</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Barra de controle -->
+<div id="barra">
+  <button class="btn" id="btnReiniciar">↺ Reiniciar</button>
+  <div id="label-etapa">▶ Iniciando...</div>
+  <button class="btn" id="btnPausar">⏸ Pausar</button>
+</div>
+
+<script>
+// ====================================================
+// ESTRELAS
+// ====================================================
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 120; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  const size = Math.random() * 2.5 + 0.5;
+  s.style.cssText = `
+    width:${size}px; height:${size}px;
+    top:${Math.random()*100}%;
+    left:${Math.random()*100}%;
+    --d:${2 + Math.random()*4}s;
+    --o:${0.2 + Math.random()*0.6};
+    animation-delay:${Math.random()*4}s;
+  `;
+  starsEl.appendChild(s);
+}
+
+// ====================================================
+// SEQUÊNCIA DE ANIMAÇÃO
+// ====================================================
+const digitos = [
+  { el: document.getElementById('d1'), anim: 'entradaFlipY',  dur: 0.7, label: '2' },
+  { el: document.getElementById('d2'), anim: 'entradaSlideUp',dur: 0.6, label: '2 +' },
+  { el: document.getElementById('d3'), anim: 'entradaFlipX',  dur: 0.7, label: '2 + 2' },
+  { el: document.getElementById('d4'), anim: 'entradaZoom',   dur: 0.5, label: '2 + 2 =' },
+  { el: document.getElementById('d5'), anim: 'celebracao',    dur: 1.0, label: '2 + 2 = 4 ✓' },
+];
+
+const labelEl = document.getElementById('label-etapa');
+let pausa = false;
+let timers = [];
+
+// Esconde todos inicialmente
+function esconderTodos() {
+  digitos.forEach(d => {
+    d.el.style.opacity = '0';
+    d.el.style.transform = 'rotateY(90deg) scale(0.3)';
+    d.el.style.animation = 'none';
+  });
+}
+
+// Dispara confetti
+function confetti() {
+  const cores = ['#FFE566','#FF6B6B','#6BFF9E','#FF9B4D','#fff','#a78bfa','#60a5fa'];
+  for (let i = 0; i < 60; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti-piece';
+    el.style.cssText = `
+      left: ${30 + Math.random()*40}%;
+      top: ${20 + Math.random()*30}%;
+      background: ${cores[Math.floor(Math.random()*cores.length)]};
+      --dur: ${1.5 + Math.random()*2}s;
+      --vx: ${(Math.random()-0.5)*200}px;
+      --rot: ${(Math.random()>0.5?'':'-')}${360+Math.random()*360}deg;
+      animation-delay: ${Math.random()*0.4}s;
+      border-radius: ${Math.random()>0.5?'50%':'2px'};
+      width: ${6+Math.random()*10}px;
+      height: ${6+Math.random()*10}px;
+    `;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 4000);
+  }
+}
+
+// Pulsar depois da animação de entrada
+function pulsarDigito(el) {
+  el.style.animation = 'pulsarBrilho 2s ease-in-out infinite';
+}
+
+// Sequência principal
+function rodarSequencia() {
+  esconderTodos();
+  labelEl.textContent = '▶ Iniciando...';
+
+  // Delays entre cada elemento (ms)
+  const delays = [600, 1600, 2600, 3700, 4800];
+  const pauseAntes5 = 200; // pausa extra antes do resultado
+
+  digitos.forEach((d, i) => {
+    const t = setTimeout(() => {
+      if (pausa) return;
+      d.el.style.animation = `${d.anim} ${d.dur}s cubic-bezier(0.34,1.56,0.64,1) forwards`;
+      labelEl.textContent = d.label;
+
+      // Pulsar depois da entrada
+      const tp = setTimeout(() => {
+        if (i < 4) pulsarDigito(d.el);
+        // No resultado — celebrar!
+        if (i === 4) {
+          confetti();
+          d.el.style.animation = 'celebracao 1s cubic-bezier(0.34,1.56,0.64,1) forwards';
+          setTimeout(() => {
+            d.el.style.animation = 'pulsarBrilho 1.2s ease-in-out infinite';
+          }, 1100);
+          labelEl.textContent = '🎉 2 + 2 = 4';
+        }
+      }, d.dur * 1000 + 100);
+      timers.push(tp);
+
+    }, delays[i]);
+    timers.push(t);
+  });
+
+  // Reinicia automaticamente após 8s
+  const loop = setTimeout(() => {
+    if (!pausa) rodarSequencia();
+  }, 9000);
+  timers.push(loop);
+}
+
+function limparTimers() {
+  timers.forEach(t => clearTimeout(t));
+  timers = [];
+}
+
+// ====================================================
+// CONTROLES
+// ====================================================
+document.getElementById('btnReiniciar').addEventListener('click', () => {
+  pausa = false;
+  document.getElementById('btnPausar').textContent = '⏸ Pausar';
+  limparTimers();
+  rodarSequencia();
+});
+
+document.getElementById('btnPausar').addEventListener('click', () => {
+  pausa = !pausa;
+  document.getElementById('btnPausar').textContent = pausa ? '▶ Continuar' : '⏸ Pausar';
+  if (!pausa) {
+    limparTimers();
+    rodarSequencia();
+  }
+});
+
+// ====================================================
+// INICIA
+// ====================================================
+rodarSequencia();
+</script>
+</body>
+</html>
