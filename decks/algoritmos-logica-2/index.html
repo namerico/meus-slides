@@ -230,6 +230,20 @@
         h1, h3 {
             animation: text-glow-pulse 6s ease-in-out infinite;
         }
+
+        /* === ANIMAÇÃO DE GALERIA === */
+        @keyframes scroll-gallery {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 8px)); }
+        }
+        .gallery-track {
+            display: flex;
+            width: max-content;
+            animation: scroll-gallery 20s linear infinite;
+        }
+        .gallery-track:hover {
+            animation-play-state: paused;
+        }
     </style>
 </head>
 
@@ -799,7 +813,39 @@ print(a2.situacao())  <span class="text-white/40"># → Reprovado</span></pre>
         </div>
     </div>
 </div>
-<!-- SLIDE 14: Modularização -->
+
+<!-- SLIDE 14: Galeria Animada de Imagens -->
+<div class="glass-card rounded-xl p-8 w-full max-w-5xl overflow-hidden" data-aos="fade-up" data-aos-delay="1350">
+    <div class="flex items-center gap-4 mb-6">
+        <div class="icon-container">
+            <i data-lucide="images" class="primary-color w-6 h-6"></i>
+        </div>
+        <div>
+            <h3 class="text-3xl font-bold text-white">Galeria Animada: Múltiplas Imagens</h3>
+            <p class="text-white/50 text-sm italic">Sim, é totalmente possível! Imagens em loop perpétuo (Regra Zero).</p>
+        </div>
+    </div>
+    <p class="text-white/70 mb-6 max-w-3xl">Passe o mouse sobre a galeria para pausar a animação. Este efeito de carrossel infinito usa apenas CSS puro com a propriedade <code>transform: translateX()</code>.</p>
+    
+    <div class="relative w-full h-[240px] overflow-hidden rounded-xl border border-white/10 bg-black/40">
+        <!-- Pista de animação infinita -->
+        <div class="gallery-track h-full gap-4 absolute top-0 left-0 items-center px-4">
+            <!-- Bloco 1 (Original) -->
+            <img src="https://picsum.photos/seed/mira1/300/200" alt="Imagem 1" class="h-[200px] w-[300px] rounded-lg shadow-lg object-cover opacity-80 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+            <img src="https://picsum.photos/seed/mira2/300/200" alt="Imagem 2" class="h-[200px] w-[300px] rounded-lg shadow-lg object-cover opacity-80 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+            <img src="https://picsum.photos/seed/mira3/300/200" alt="Imagem 3" class="h-[200px] w-[300px] rounded-lg shadow-lg object-cover opacity-80 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+            <img src="https://picsum.photos/seed/mira4/300/200" alt="Imagem 4" class="h-[200px] w-[300px] rounded-lg shadow-lg object-cover opacity-80 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+            
+            <!-- Bloco 2 (Clone Exato para o Loop Contínuo) -->
+            <img src="https://picsum.photos/seed/mira1/300/200" alt="Imagem 1 Clone" class="h-[200px] w-[300px] rounded-lg shadow-lg object-cover opacity-80 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+            <img src="https://picsum.photos/seed/mira2/300/200" alt="Imagem 2 Clone" class="h-[200px] w-[300px] rounded-lg shadow-lg object-cover opacity-80 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+            <img src="https://picsum.photos/seed/mira3/300/200" alt="Imagem 3 Clone" class="h-[200px] w-[300px] rounded-lg shadow-lg object-cover opacity-80 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+            <img src="https://picsum.photos/seed/mira4/300/200" alt="Imagem 4 Clone" class="h-[200px] w-[300px] rounded-lg shadow-lg object-cover opacity-80 hover:opacity-100 transition-opacity grayscale hover:grayscale-0">
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 15: Modularização -->
 <div class="glass-card rounded-xl p-8 w-full max-w-5xl" data-aos="fade-up" data-aos-delay="1400">
     <div class="flex items-center gap-4 mb-4">
         <div class="icon-container">
