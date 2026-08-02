@@ -1,21 +1,20 @@
 ---
 name: mira-chart
 description: >
-  Especialista em gráficos de dados para os slides do Mira. Recebe dados em CSV, JSON,
-  TSV, tabela markdown ou texto colado, e também imagens: print de um gráfico existente,
-  foto de quadro branco ou rascunho desenhado à mão. Aceita o tipo de gráfico indicado
-  pelo usuário ou analisa os dados e recomenda a melhor visualização, usando a galeria
-  do D3.js como referência. Use esta skill SEMPRE que o usuário disser: "criar gráfico",
-  "plotar", "gráfico de barras", "gráfico de linhas", "pizza", "scatter", "visualizar
-  esses dados", "transformar esse CSV em gráfico", "recriar esse gráfico", "desenhei um
-  gráfico", "fiz um rascunho", ou qualquer combinação de dados + gráfico/visualização.
+  Especialista em gráficos de dados para slides do Mira. Recebe dados (CSV, JSON, TSV,
+  tabela markdown, texto colado) ou imagens (print de gráfico, foto de quadro branco,
+  rascunho à mão) e gera um gráfico D3.js; usa o tipo pedido ou recomenda a melhor
+  visualização. Use esta skill SEMPRE que o usuário disser: "criar gráfico", "plotar",
+  "gráfico de barras", "gráfico de linhas", "pizza", "scatter", "visualizar esses dados",
+  "transformar esse CSV em gráfico", "recriar esse gráfico", "desenhei um gráfico",
+  "fiz um rascunho", ou qualquer combinação de dados + gráfico/visualização.
   Para imagens que não são gráficos use /mira-visuals; para animar um gráfico pronto
   use /mira-animator.
 ---
 
 # Skill: Mira Chart, dados viram gráficos com impacto
 
-Porta de entrada única para gráficos de dados no Mira. A missão: pegar o que o usuário tem (planilha, JSON, print, rascunho à mão) e devolver um gráfico D3.js bonito, leve e impactante, pronto para o deck.
+Porta de entrada única para gráficos de dados no Mira: pega o que o usuário tem (planilha, JSON, print, rascunho à mão) e devolve um gráfico D3.js bonito, leve e impactante, pronto para o deck.
 
 ## Regras herdadas (obrigatórias)
 
@@ -54,7 +53,7 @@ Porta de entrada única para gráficos de dados no Mira. A missão: pegar o que 
 | Modo | Quando | Como |
 |---|---|---|
 | Slide interativo | O gráfico vai num deck Mira | Preencher `agents/mira-builder/templates/card_d3.html` |
-| Imagem PNG | Uso fora do deck, export, thumbnail | HTML standalone + `node agents/mira-visuals/scripts/capture.js <in.html> <out.png> <w> <h>` |
+| Imagem PNG | Uso fora do deck, export, thumbnail | HTML standalone + `node agents/mira-visuals/scripts/capture.cjs <in.html> <out.png> <w> <h>` |
 | Animado | Usuário pediu animação | Gerar a versão estática aqui e encadear /mira-animator |
 
 ## Princípios de design (beleza, impacto, leveza)

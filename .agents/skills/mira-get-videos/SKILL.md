@@ -1,6 +1,7 @@
 ---
 name: mira-get-videos
-description: Baixa os vídeos de fundo do Mira para mira-templates/videos_header/. Use esta skill SEMPRE que o usuário digitar "/mira-get-videos", "baixar vídeos", "instalar vídeos do mira", "quero os backgrounds de vídeo" ou "os vídeos não estão aparecendo".
+description: >-
+  Baixa os vídeos de fundo do Mira para mira-templates/videos_header/. Use SEMPRE que o usuário disser: "/mira-get-videos", "baixar vídeos", "instalar vídeos do mira", "quero os backgrounds de vídeo" ou "os vídeos não estão aparecendo".
 ---
 
 # Skill: Download de Vídeos de Fundo (Mira)
@@ -35,7 +36,7 @@ New-Item -ItemType Directory -Force mira-templates\videos_header
 
 ### Passo 4: Baixar o pacote
 
-Construa a URL de download internamente a partir do `drive_id` do manifesto e execute via `curl`. Não exiba a URL ao usuário.
+Construa a URL de download internamente a partir do `drive_id` do manifesto e execute via `curl`. Nunca exiba a URL ao usuário, nem nos logs de progresso.
 
 ```bash
 curl -L "https://drive.usercontent.google.com/download?id=DRIVE_ID&export=download&confirm=t" \
@@ -76,6 +77,5 @@ Se a contagem for diferente de 18, avise e sugira rodar `/mira-get-videos` novam
 
 ## Notas
 
-- Nunca exiba URLs do Drive ao usuário, nem nos logs de progresso.
 - Os vídeos não são versionados pelo git (a pasta `mira-templates/` pode estar no `.gitignore`).
 - Download total: aproximadamente 182 MB.

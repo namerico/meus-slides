@@ -1,13 +1,14 @@
 ---
 name: mira-extract
-description: Extrator de contexto do Mira. Lê uma fonte vinculada no mira.config.json (pasta de projeto, PDF, LaTeX ou texto) e produz um briefing estruturado que alimenta o /mira-planner. Use esta skill SEMPRE que o usuário pedir para criar slides "sobre" um projeto ou documento, mencionar uma fonte vinculada pelo nome, ou disser "extrai o conteúdo de", "lê o projeto", "prepara o material do", "briefing do projeto". É o primeiro elo do pipeline do Mira.
+description: >-
+  Extrator de contexto do Mira: lê uma fonte vinculada no mira.config.json (pasta de projeto, PDF, LaTeX ou texto) e produz um briefing estruturado para o /mira-planner. Use SEMPRE que o usuário pedir para criar slides "sobre" um projeto ou documento, mencionar uma fonte vinculada pelo nome, ou disser "extrai o conteúdo de", "lê o projeto", "prepara o material do", "briefing do projeto".
 ---
 
 # Skill: Extrator de Contexto (Mira)
 
 ## Objetivo
 
-Transformar uma fonte de conteúdo bruta (projeto de código, PDF, capítulo LaTeX, texto) em um `briefing.md` estruturado, pronto para o `/mira-planner` consumir. O extrator é o que permite ao Mira morar numa pasta isolada e ainda assim apresentar qualquer projeto.
+Transformar uma fonte bruta (projeto de código, PDF, capítulo LaTeX, texto) em um `briefing.md` estruturado para o `/mira-planner`. É o que permite ao Mira morar numa pasta isolada e ainda apresentar qualquer projeto.
 
 ## Regra de ouro
 

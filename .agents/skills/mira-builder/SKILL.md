@@ -1,15 +1,20 @@
 ---
 name: mira-builder
-description: Motor de montagem atômica para criar apresentações interativas em HTML/Tailwind usando componentes Glassmorphism modulares com navegação card-a-card.
+description: >-
+  Motor de montagem atômica que cria apresentações interativas em HTML/Tailwind com
+  componentes Glassmorphism modulares e navegação card-a-card. Use SEMPRE que o
+  usuário quiser montar ou gerar uma apresentação, transformar um plano de slides (do
+  /mira-planner) ou um capítulo em HTML, criar um deck do zero, ou pedir slides
+  interativos. Normalmente roda depois do /mira-planner e antes do /mira-validator.
 ---
 
 # Skill: Apresentação de Dados em Cards Animados
 
-## REGRA ZERO — OBRIGATÓRIO ANTES DE QUALQUER GERAÇÃO
+## REGRA ZERO
 
-**ANTES de gerar qualquer slide, LEIA pelo menos 2 dos 3 arquivos da pasta `/exemplos_de_sucesso/` (01.html, 02.html, 03.html).** Esses arquivos foram editados manualmente junto com o usuario e representam o padrao de qualidade esperado. NAO gere output one-shot sem consulta-los. O objetivo e REPLICAR o nivel de qualidade visual e estrutural desses exemplos.
+Antes de gerar qualquer slide, leia ao menos 2 dos 3 arquivos de `/exemplos_de_sucesso/` (01.html, 02.html, 03.html). Foram editados à mão com o usuário e definem o padrão de qualidade a replicar — não gere output one-shot sem consultá-los.
 
-**ATENCAO sobre cores nos exemplos:** Os exemplos de sucesso usam cores historicas diferentes (`#e47d5b`, `#FFA203`, `#222222`). IGNORE essas cores. Use SEMPRE as cores definidas na secao "Regras de Estilo": `#FF904D` (primaria) e `#000000` (fundo). Os exemplos servem como referencia de ESTRUTURA, LAYOUT e QUALIDADE VISUAL, nao de cores.
+Cores nos exemplos: eles usam cores históricas (`#e47d5b`, `#FFA203`, `#222222`). Ignore essas cores — use sempre as da seção "Regras de Estilo" (`#FF904D` primária, `#000000` fundo). Os exemplos são referência de estrutura, layout e qualidade visual, não de cores.
 
 ## REGRA DE IDIOMA — PORTUGUÊS CORRETO
 
@@ -18,24 +23,59 @@ Siga integralmente `agents/_shared/idioma.md` (regra compartilhada de todos os a
 
 ## 📝 Instruções de Execução
 
-Você deve atuar como um engenheiro de front-end especializado em UX/UI. Seu objetivo é transformar dados brutos em uma página HTML única e elegante, selecionando e injetando componentes da pasta `/templates`.
+Atue como engenheiro de front-end UX/UI: transforme dados brutos numa página HTML única e elegante, selecionando e injetando componentes de `/templates`.
 
 ### Passo 0: Planejamento de Conteudo (OBRIGATORIO)
 
-**ANTES de qualquer montagem visual, chame a skill `/mira-planner`.**
+Antes de qualquer montagem visual, chame a skill `/mira-planner`. Ele analisa o conteudo do capitulo e gera um plano estruturado de slides (quantidade, tipo de card, conteudo de cada um). Apos aprovacao, o plano passa pelo `/mira-copywriter`, que refina titulos, descricoes e selecao de imagens.
 
-O planejador analisa o conteudo do capitulo e gera um plano estruturado de slides (quantidade, tipo de card, conteudo de cada um). Apos aprovacao, o plano passa pelo `/mira-copywriter` que refina titulos, descricoes e selecao de imagens usando tecnicas de copywriting.
+- Se o usuario pediu "sem feedback", "direto", "sem confirmacao" ou similar: o pipeline roda sem pedir aprovacao.
+- Caso contrario: o planejador apresenta o plano; apos aprovacao o copywriter refina e mostra as mudancas antes de continuar.
 
-- Se o usuario pediu para criar "sem feedback", "direto", "sem confirmacao" ou similar: o pipeline inteiro roda sem pedir aprovacao.
-- Se o usuario NAO pediu isso: o planejador apresenta o plano, e apos aprovacao o copywriter refina e apresenta as mudancas antes de continuar.
+Use o plano refinado pelo copywriter como guia. Nao invente slides fora do plano.
 
-Use o plano refinado pelo copywriter como guia para os passos seguintes. Nao invente slides fora do plano.
-
-### Passo 1: Leitura Obrigatoria de Referencias
-1. **Leia 2+ exemplos** da pasta `exemplos_de_sucesso/` para absorver o padrao visual
-2. **Leia as imagens disponiveis** em `decks/<deck>/assets/` (ja inventariadas pelo planejador)
-3. **Identifique a logo** em `logo_canal/canal_sandeco_logo.png` (sera copiada para a pasta de destino)
+### Passo 1: Leitura de Referencias
+1. **Leia 2+ exemplos** de `exemplos_de_sucesso/` (padrao visual)
+2. **Leia as imagens** em `decks/<deck>/assets/` (ja inventariadas pelo planejador)
+3. **Identifique a logo** em `logo_canal/canal_sandeco_logo.png` (sera copiada para o destino)
 4. **Leia `video_lista.md`** para confirmar o video escolhido pelo planejador
+
+### Passo 1.5: Lembrancas do Usuario (memoria de preferencias)
+
+Primeiro, deixe a memoria em dia. O comando le as correcoes que o usuario ja fez e promove a candidata o que ja se repetiu o bastante:
+
+```bash
+npx mira-animator memoria consolidar
+```
+
+Se aparecer nota **candidata**, avise o usuario em uma linha e siga: candidata **nao e aplicada** ate ele ativar com `memoria estado <arquivo> ativo`. Nao insista, nao pare a montagem.
+
+Depois pergunte o que se aplica a este deck. **Uma consulta por papel de slide que o deck tem** (a nota so aparece quando o papel dela e informado, entao a consulta generica nao alcanca nota de escopo):
+
+```bash
+npx mira-animator memoria lembrancas --papel capa --formato 16x9 --registro <slug>
+npx mira-animator memoria lembrancas --papel conteudo --formato 16x9 --registro <slug>
+npx mira-animator memoria lembrancas --papel encerramento --formato 16x9 --registro <slug>
+```
+
+Ajuste `--formato` ao deck (`16x9`, `9x16`, `1x1`). O `--registro` recebe o **slug do deck**, nao um caminho: a proveniencia (o que foi aplicado, o que foi ignorado e por que) vai para a pasta de memoria do Mira, fora do deck. **Nunca grave lembranca dentro do deck**: o pacote tem o perfil do usuario em texto puro e deck publicado e drop-and-run, subiria junto.
+
+Se qualquer um desses comandos falhar (versao do Mira sem o comando, pasta inexistente), **gere normalmente e siga**: memoria e opcional, nunca trava a montagem.
+
+O comando devolve texto legivel, uma linha por lembranca, com o escopo e a confianca. Como usar:
+
+- **Lembranca ativa vale como orientacao**, nao como ordem: aplique quando o slide se encaixa no escopo dela.
+- **A marca manda acima da memoria.** Cor #FF904D, `text-wrap: balance` na capa e area segura continuam nao-negociaveis; lembranca que conflita com isso e descartada.
+- **Nao interrompa slide a slide.** Se duas lembrancas se contradizem no mesmo slide, siga o padrao do Mira e junte a duvida numa pergunta so no fim.
+- **Sem memoria ainda?** O comando responde "Nenhuma lembranca se aplica". Gere normal, isso e o esperado no comeco.
+
+Quando o usuario der uma ordem explicita de gosto durante a conversa ("sempre menos texto", "na capa o titulo fica em cima"), grave:
+
+```bash
+npx mira-animator memoria nota "menos texto por slide, no maximo tres linhas" --eixo densidade
+```
+
+Eixos em uso: `cor`, `posicao`, `densidade`, `animacao`, `camera`, `tipografia`. Escopo opcional: `--papel capa|conteudo|encerramento`, `--formato 16x9|9x16|1x1`, `--tema <tema>`. Grave so preferencia que valha para os proximos decks; conserto de um slide especifico nao vira nota.
 
 ### Passo 2: Montagem dos Cards conforme o Plano
 Para cada slide do plano aprovado, use o template indicado:
@@ -84,11 +124,11 @@ Para cada template selecionado:
 - **CTA obrigatorio:** Inserir `card_cta.html` no meio da apresentacao (entre os cards 4-8)
 
 ### Geracao de Imagens
-- Se o conteudo do slide precisa de uma imagem que nao existe em `decks/<deck>/assets/`, chame a skill `/mira-visuals` para gerar a imagem antes de montar o slide.
+- Se um slide precisa de imagem que nao existe em `decks/<deck>/assets/`, chame a skill `/mira-visuals` para gera-la antes de montar o slide.
 
 ### Passo 5: Validacao Automatica (OBRIGATORIO)
 
-Apos gerar o `index.html` e copiar todos os assets, **chame a skill `/mira-validator`** para verificar a conformidade do arquivo gerado. O validador checa cores, logos, videos, layout e estrutura. Se houver falhas criticas, corrija antes de apresentar ao usuario.
+Apos gerar o `index.html` e copiar os assets, chame a skill `/mira-validator`. Ela checa cores, logos, videos, layout e estrutura; corrija falhas criticas antes de apresentar ao usuario.
 
 ## 🎨 Regras de Estilo e Design
 
@@ -113,18 +153,25 @@ Apos gerar o `index.html` e copiar todos os assets, **chame a skill `/mira-valid
 - **Títulos de card:** `text-3xl` ou `text-4xl` (NÃO `text-5xl`)
 - **Corpo:** `text-base` ou `text-lg`
 
+### Responsividade (OBRIGATÓRIO)
+Todo slide 16:9 DEVE reorganizar em retrato para abrir bem no celular — sem `mobile.html` separado, sem "print cortado".
+- **Camada base:** o `layout_base.html` já traz o bloco `@MIRA:RESPONSIVE` (reflow mobile-first: fontes via `clamp`, grids empilham, padding reduz, palcos escalam). NUNCA remova esse bloco. Fonte da verdade: `templates/themes/responsive.css`.
+- **Escreva mobile-first:** títulos com breakpoint (`text-4xl md:text-6xl`, nunca `text-6xl` sozinho num H1); grids `grid-cols-1 md:grid-cols-2`; nada de largura fixa em `px`.
+- **Sem overflow horizontal:** imagens/tabelas/svg com `max-w-full`; tabela larga dentro de `overflow-x-auto`.
+- **`<meta viewport>`** deve conter `width=device-width` e `viewport-fit=cover`.
+
 ### Imagens do Capítulo
-- **OBRIGATÓRIO:** Verificar `decks/<deck>/assets/` e incluir as imagens relevantes nos slides correspondentes
+- Incluir as imagens relevantes de `decks/<deck>/assets/` nos slides correspondentes
 - Usar `class="w-full rounded-lg"` para imagens de largura total
-- Copiar imagens para a pasta de destino do slide
+- Copiar as imagens para a pasta de destino do slide
 
 ### Videos (OBRIGATORIO)
-- **Selecao de video:** Consultar `video_lista.md` para escolher o video mais adequado ao tema
-- **Header:** Sempre incluir um video de fundo no header (copiado como `header-bg.mp4`)
-- **Cards internos:** Opcionalmente usar videos adicionais como fundo de cards ao longo da apresentacao
-- **Atributos obrigatorios:** `autoplay loop muted playsinline`
-- **Opacidade:** Sempre `opacity: 0.5` (50% de transparencia) via `style="opacity: 0.5;"` ou `class="opacity-50"`
-- **Overlay:** Sempre com gradient overlay por cima para garantir legibilidade do texto
+- **Selecao:** consultar `video_lista.md` para escolher o video adequado ao tema
+- **Header:** sempre um video de fundo no header (copiado como `header-bg.mp4`)
+- **Cards internos:** opcionalmente, videos adicionais como fundo de cards
+- **Atributos:** `autoplay loop muted playsinline`
+- **Opacidade:** sempre `opacity: 0.5` via `style="opacity: 0.5;"` ou `class="opacity-50"`
+- **Overlay:** sempre gradient overlay por cima, para legibilidade do texto
 
 Exemplo de video em card interno:
 ```html
@@ -171,9 +218,4 @@ Para cada apresentação gerada, garantir:
 - [ ] NÃO há número de slides no header (remover `[DESTAQUE_NUMERICO]`)
 
 ## 🚀 Saída Esperada
-Um arquivo `index.html` completo, autossuficiente, com:
-- Vídeo de fundo no header
-- Logo Canal Sandeco no header e footer
-- Imagens do capítulo nos slides relevantes
-- Scripts de animação (AOS), ícones (Lucide), navegação card-a-card
-- Qualidade visual compatível com os exemplos de sucesso
+Um `index.html` completo e autossuficiente: vídeo de fundo no header, logo Sandeco no header e footer, imagens do capítulo nos slides relevantes, scripts de animação (AOS), ícones (Lucide), navegação card-a-card e qualidade visual compatível com os exemplos de sucesso.

@@ -1,0 +1,355 @@
+[2026-07-26T21:10:17.490Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=28384
+[2026-07-26T21:10:17.627Z] 
+[2026-07-26T21:10:17.627Z]   Mira Studio
+[2026-07-26T21:10:17.627Z]   ─────────────────────────────────────────
+[2026-07-26T21:10:17.628Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-26T21:10:17.628Z]   endereço: http://127.0.0.1:5198/
+[2026-07-26T21:10:17.628Z]   saúde:    http://127.0.0.1:5198/__mira/health
+[2026-07-26T21:10:17.628Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-26T21:10:17.629Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-26T21:10:17.630Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-26T21:10:17.630Z] 
+[2026-07-26T21:10:17.779Z] evidência: 2 linha(s) em C:/Users/sande/AppData/Local/Temp/claude/C--Users-sande--mira/d7cca3c2-e1aa-4246-9ec3-6627e7fb95cd/scratchpad/mem
+[2026-07-26T21:10:17.782Z] evidência: 2 linha(s) em C:/Users/sande/AppData/Local/Temp/claude/C--Users-sande--mira/d7cca3c2-e1aa-4246-9ec3-6627e7fb95cd/scratchpad/mem
+[2026-07-26T21:12:47.281Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=28944
+[2026-07-26T21:12:47.314Z] 
+[2026-07-26T21:12:47.315Z]   Mira Studio
+[2026-07-26T21:12:47.315Z]   ─────────────────────────────────────────
+[2026-07-26T21:12:47.315Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-26T21:12:47.315Z]   endereço: http://127.0.0.1:5398/
+[2026-07-26T21:12:47.315Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-26T21:12:47.315Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-26T21:12:47.315Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-26T21:12:47.316Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-26T21:12:47.316Z] 
+[2026-07-26T21:12:47.448Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-vDqQ6L
+[2026-07-26T21:12:47.450Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-vDqQ6L
+[2026-07-26T22:02:00.035Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=20444
+[2026-07-26T22:02:00.075Z] 
+[2026-07-26T22:02:00.075Z]   Mira Studio
+[2026-07-26T22:02:00.076Z]   ─────────────────────────────────────────
+[2026-07-26T22:02:00.076Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-26T22:02:00.076Z]   endereço: http://127.0.0.1:5398/
+[2026-07-26T22:02:00.076Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-26T22:02:00.077Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-26T22:02:00.077Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-26T22:02:00.077Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-26T22:02:00.077Z] 
+[2026-07-26T22:02:00.207Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-KbZMnJ
+[2026-07-26T22:02:00.210Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-KbZMnJ
+[2026-07-26T22:31:53.349Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=23880
+[2026-07-26T22:31:53.387Z] 
+[2026-07-26T22:31:53.387Z]   Mira Studio
+[2026-07-26T22:31:53.387Z]   ─────────────────────────────────────────
+[2026-07-26T22:31:53.388Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-26T22:31:53.388Z]   endereço: http://127.0.0.1:5398/
+[2026-07-26T22:31:53.388Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-26T22:31:53.388Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-26T22:31:53.388Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-26T22:31:53.389Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-26T22:31:53.389Z] 
+[2026-07-26T22:31:53.566Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-qyQjbv
+[2026-07-26T22:31:53.618Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-qyQjbv
+[2026-07-26T22:51:44.737Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=20960
+[2026-07-26T22:51:44.780Z] 
+[2026-07-26T22:51:44.780Z]   Mira Studio
+[2026-07-26T22:51:44.780Z]   ─────────────────────────────────────────
+[2026-07-26T22:51:44.781Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-26T22:51:44.781Z]   endereço: http://127.0.0.1:5398/
+[2026-07-26T22:51:44.781Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-26T22:51:44.781Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-26T22:51:44.781Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-26T22:51:44.781Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-26T22:51:44.782Z] 
+[2026-07-26T22:51:44.900Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-ByKvlV
+[2026-07-26T22:51:44.903Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-ByKvlV
+[2026-07-26T23:15:28.350Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=13280
+[2026-07-26T23:15:28.399Z] 
+[2026-07-26T23:15:28.400Z]   Mira Studio
+[2026-07-26T23:15:28.400Z]   ─────────────────────────────────────────
+[2026-07-26T23:15:28.400Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-26T23:15:28.400Z]   endereço: http://127.0.0.1:5398/
+[2026-07-26T23:15:28.400Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-26T23:15:28.401Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-26T23:15:28.401Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-26T23:15:28.401Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-26T23:15:28.401Z] 
+[2026-07-26T23:15:28.606Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-2EiixM
+[2026-07-26T23:15:28.665Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-2EiixM
+[2026-07-26T23:16:04.518Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=15924
+[2026-07-26T23:16:04.567Z] 
+[2026-07-26T23:16:04.568Z]   Mira Studio
+[2026-07-26T23:16:04.568Z]   ─────────────────────────────────────────
+[2026-07-26T23:16:04.569Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-26T23:16:04.569Z]   endereço: http://127.0.0.1:5398/
+[2026-07-26T23:16:04.569Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-26T23:16:04.570Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-26T23:16:04.570Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-26T23:16:04.570Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-26T23:16:04.571Z] 
+[2026-07-26T23:16:04.858Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-aQXk0c
+[2026-07-26T23:16:04.876Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-aQXk0c
+[2026-07-26T23:55:40.499Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=30956
+[2026-07-26T23:55:40.537Z] 
+[2026-07-26T23:55:40.538Z]   Mira Studio
+[2026-07-26T23:55:40.538Z]   ─────────────────────────────────────────
+[2026-07-26T23:55:40.538Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-26T23:55:40.538Z]   endereço: http://127.0.0.1:5398/
+[2026-07-26T23:55:40.539Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-26T23:55:40.539Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-26T23:55:40.539Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-26T23:55:40.539Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-26T23:55:40.539Z] 
+[2026-07-26T23:55:40.677Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-sTckVj
+[2026-07-26T23:55:40.682Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-sTckVj
+[2026-07-26T23:57:03.308Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=15968
+[2026-07-26T23:57:03.356Z] 
+[2026-07-26T23:57:03.356Z]   Mira Studio
+[2026-07-26T23:57:03.357Z]   ─────────────────────────────────────────
+[2026-07-26T23:57:03.357Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-26T23:57:03.357Z]   endereço: http://127.0.0.1:5398/
+[2026-07-26T23:57:03.357Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-26T23:57:03.358Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-26T23:57:03.358Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-26T23:57:03.358Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-26T23:57:03.359Z] 
+[2026-07-26T23:57:03.426Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-i4j9Kl
+[2026-07-26T23:57:03.431Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-i4j9Kl
+[2026-07-27T00:01:59.056Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=32500
+[2026-07-27T00:01:59.111Z] 
+[2026-07-27T00:01:59.111Z]   Mira Studio
+[2026-07-27T00:01:59.111Z]   ─────────────────────────────────────────
+[2026-07-27T00:01:59.111Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-27T00:01:59.111Z]   endereço: http://127.0.0.1:5398/
+[2026-07-27T00:01:59.112Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-27T00:01:59.112Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-27T00:01:59.112Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-27T00:01:59.112Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-27T00:01:59.112Z] 
+[2026-07-27T00:01:59.249Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-Vo9wh3
+[2026-07-27T00:01:59.253Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-Vo9wh3
+[2026-07-27T00:10:01.347Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=24620
+[2026-07-27T00:10:01.384Z] 
+[2026-07-27T00:10:01.384Z]   Mira Studio
+[2026-07-27T00:10:01.384Z]   ─────────────────────────────────────────
+[2026-07-27T00:10:01.384Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-27T00:10:01.384Z]   endereço: http://127.0.0.1:5398/
+[2026-07-27T00:10:01.385Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-27T00:10:01.385Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-27T00:10:01.385Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-27T00:10:01.385Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-27T00:10:01.385Z] 
+[2026-07-27T00:10:01.522Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-tML55l
+[2026-07-27T00:10:01.526Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-tML55l
+[2026-07-27T00:14:36.840Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=19904
+[2026-07-27T00:14:36.884Z] 
+[2026-07-27T00:14:36.885Z]   Mira Studio
+[2026-07-27T00:14:36.885Z]   ─────────────────────────────────────────
+[2026-07-27T00:14:36.885Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-27T00:14:36.885Z]   endereço: http://127.0.0.1:5398/
+[2026-07-27T00:14:36.885Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-27T00:14:36.885Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-27T00:14:36.886Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-27T00:14:36.886Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-27T00:14:36.886Z] 
+[2026-07-27T00:14:37.021Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-MxOK5K
+[2026-07-27T00:14:37.024Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-MxOK5K
+[2026-07-27T00:43:08.183Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=29168
+[2026-07-27T00:43:08.232Z] 
+[2026-07-27T00:43:08.233Z]   Mira Studio
+[2026-07-27T00:43:08.233Z]   ─────────────────────────────────────────
+[2026-07-27T00:43:08.233Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-27T00:43:08.233Z]   endereço: http://127.0.0.1:5398/
+[2026-07-27T00:43:08.234Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-27T00:43:08.234Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-27T00:43:08.234Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-27T00:43:08.234Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-27T00:43:08.234Z] 
+[2026-07-27T00:43:08.365Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-2gibJ6
+[2026-07-27T00:43:08.369Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-2gibJ6
+[2026-07-27T00:44:39.620Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=29980
+[2026-07-27T00:44:39.695Z] 
+[2026-07-27T00:44:39.695Z]   Mira Studio
+[2026-07-27T00:44:39.696Z]   ─────────────────────────────────────────
+[2026-07-27T00:44:39.696Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-27T00:44:39.697Z]   endereço: http://127.0.0.1:5398/
+[2026-07-27T00:44:39.697Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-27T00:44:39.698Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-27T00:44:39.698Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-27T00:44:39.699Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-27T00:44:39.699Z] 
+[2026-07-27T00:44:39.756Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-riEQtd
+[2026-07-27T00:44:39.762Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-riEQtd
+[2026-07-27T00:54:53.752Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=34508
+[2026-07-27T00:54:54.047Z] 
+[2026-07-27T00:54:54.049Z]   Mira Studio
+[2026-07-27T00:54:54.052Z]   ─────────────────────────────────────────
+[2026-07-27T00:54:54.054Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-27T00:54:54.056Z]   endereço: http://127.0.0.1:5398/
+[2026-07-27T00:54:54.058Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-27T00:54:54.060Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-27T00:54:54.061Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-27T00:54:54.063Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-27T00:54:54.064Z] 
+[2026-07-27T00:54:54.114Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-iSUID5
+[2026-07-27T00:54:54.120Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-iSUID5
+[2026-07-27T01:04:37.787Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=25500
+[2026-07-27T01:04:37.843Z] 
+[2026-07-27T01:04:37.844Z]   Mira Studio
+[2026-07-27T01:04:37.844Z]   ─────────────────────────────────────────
+[2026-07-27T01:04:37.845Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-27T01:04:37.845Z]   endereço: http://127.0.0.1:5398/
+[2026-07-27T01:04:37.845Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-27T01:04:37.846Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-27T01:04:37.846Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-27T01:04:37.847Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-27T01:04:37.847Z] 
+[2026-07-27T01:04:37.926Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-UufXjj
+[2026-07-27T01:04:37.931Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-UufXjj
+[2026-07-27T01:08:25.263Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=29140
+[2026-07-27T01:08:25.326Z] 
+[2026-07-27T01:08:25.326Z]   Mira Studio
+[2026-07-27T01:08:25.326Z]   ─────────────────────────────────────────
+[2026-07-27T01:08:25.326Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-27T01:08:25.327Z]   endereço: http://127.0.0.1:5398/
+[2026-07-27T01:08:25.327Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-27T01:08:25.327Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-27T01:08:25.327Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-27T01:08:25.327Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-27T01:08:25.328Z] 
+[2026-07-27T01:08:25.413Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-NE5iPv
+[2026-07-27T01:08:25.417Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-NE5iPv
+[2026-07-27T01:09:23.067Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=38216
+[2026-07-27T01:09:23.115Z] 
+[2026-07-27T01:09:23.115Z]   Mira Studio
+[2026-07-27T01:09:23.116Z]   ─────────────────────────────────────────
+[2026-07-27T01:09:23.116Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-27T01:09:23.116Z]   endereço: http://127.0.0.1:5398/
+[2026-07-27T01:09:23.116Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-27T01:09:23.116Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-27T01:09:23.117Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-27T01:09:23.117Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-27T01:09:23.117Z] 
+[2026-07-27T01:09:23.218Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-r2fjcJ
+[2026-07-27T01:09:23.222Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-r2fjcJ
+[2026-07-27T14:27:13.301Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=26768
+[2026-07-27T14:27:13.389Z] 
+[2026-07-27T14:27:13.389Z]   Mira Studio
+[2026-07-27T14:27:13.389Z]   ─────────────────────────────────────────
+[2026-07-27T14:27:13.390Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-27T14:27:13.390Z]   endereço: http://127.0.0.1:5398/
+[2026-07-27T14:27:13.390Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-27T14:27:13.390Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-27T14:27:13.391Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-27T14:27:13.391Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-27T14:27:13.391Z] 
+[2026-07-27T14:27:13.677Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-FZ2vHh
+[2026-07-27T14:27:13.700Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-FZ2vHh
+[2026-07-27T14:30:28.858Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=31968
+[2026-07-27T14:30:28.898Z] 
+[2026-07-27T14:30:28.898Z]   Mira Studio
+[2026-07-27T14:30:28.898Z]   ─────────────────────────────────────────
+[2026-07-27T14:30:28.898Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-27T14:30:28.899Z]   endereço: http://127.0.0.1:5398/
+[2026-07-27T14:30:28.899Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-27T14:30:28.899Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-27T14:30:28.899Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-27T14:30:28.899Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-27T14:30:28.900Z] 
+[2026-07-27T14:30:29.001Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-8BVarA
+[2026-07-27T14:30:29.008Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-8BVarA
+[2026-07-27T16:08:08.413Z] nova sessão; deck=/workspaces/.mira/templates; pid=76883
+[2026-07-27T16:08:08.422Z] 
+[2026-07-27T16:08:08.426Z]   Mira Studio
+[2026-07-27T16:08:08.428Z]   ─────────────────────────────────────────
+[2026-07-27T16:08:08.431Z]   deck:     /workspaces/.mira/templates
+[2026-07-27T16:08:08.434Z]   endereço: http://127.0.0.1:5398/
+[2026-07-27T16:08:08.437Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-27T16:08:08.440Z]   log:      /workspaces/.mira/templates/studio/mira-studio.log
+[2026-07-27T16:08:08.444Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-27T16:08:08.446Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-27T16:08:08.449Z] 
+[2026-07-27T16:08:08.512Z] evidência: 2 linha(s) em /tmp/mira-mem-0zGREk
+[2026-07-27T16:08:08.518Z] evidência: 2 linha(s) em /tmp/mira-mem-0zGREk
+[2026-07-27T16:08:08.527Z]   encerrando por SIGTERM.
+[2026-07-27T16:09:30.399Z] nova sessão; deck=/workspaces/.mira/templates; pid=84721
+[2026-07-27T16:09:30.408Z] 
+[2026-07-27T16:09:30.412Z]   Mira Studio
+[2026-07-27T16:09:30.414Z]   ─────────────────────────────────────────
+[2026-07-27T16:09:30.418Z]   deck:     /workspaces/.mira/templates
+[2026-07-27T16:09:30.422Z]   endereço: http://127.0.0.1:5398/
+[2026-07-27T16:09:30.426Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-27T16:09:30.429Z]   log:      /workspaces/.mira/templates/studio/mira-studio.log
+[2026-07-27T16:09:30.432Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-27T16:09:30.435Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-27T16:09:30.438Z] 
+[2026-07-27T16:09:30.526Z] evidência: 2 linha(s) em /tmp/mira-mem-dIVWKj
+[2026-07-27T16:09:30.532Z] evidência: 2 linha(s) em /tmp/mira-mem-dIVWKj
+[2026-07-27T16:09:30.540Z]   encerrando por SIGTERM.
+[2026-07-29T13:55:34.134Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=4292
+[2026-07-29T13:55:34.183Z] 
+[2026-07-29T13:55:34.184Z]   Mira Studio
+[2026-07-29T13:55:34.184Z]   ─────────────────────────────────────────
+[2026-07-29T13:55:34.184Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-29T13:55:34.184Z]   endereço: http://127.0.0.1:5398/
+[2026-07-29T13:55:34.184Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-29T13:55:34.185Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-29T13:55:34.185Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-29T13:55:34.185Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-29T13:55:34.185Z] 
+[2026-07-29T13:55:34.255Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-vc0dqN
+[2026-07-29T13:55:34.257Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-vc0dqN
+[2026-07-29T14:22:26.289Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=13688
+[2026-07-29T14:22:26.335Z] 
+[2026-07-29T14:22:26.335Z]   Mira Studio
+[2026-07-29T14:22:26.335Z]   ─────────────────────────────────────────
+[2026-07-29T14:22:26.335Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-29T14:22:26.336Z]   endereço: http://127.0.0.1:5398/
+[2026-07-29T14:22:26.336Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-29T14:22:26.336Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-29T14:22:26.336Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-29T14:22:26.336Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-29T14:22:26.336Z] 
+[2026-07-29T14:22:26.429Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-fjzi4i
+[2026-07-29T14:22:26.432Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-fjzi4i
+[2026-07-29T19:07:32.212Z] nova sessão; deck=C:\Users\sande\.mira\templates; pid=1208
+[2026-07-29T19:07:32.267Z] 
+[2026-07-29T19:07:32.267Z]   Mira Studio
+[2026-07-29T19:07:32.268Z]   ─────────────────────────────────────────
+[2026-07-29T19:07:32.268Z]   deck:     C:\Users\sande\.mira\templates
+[2026-07-29T19:07:32.268Z]   endereço: http://127.0.0.1:5398/
+[2026-07-29T19:07:32.268Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-29T19:07:32.268Z]   log:      C:\Users\sande\.mira\templates\studio\mira-studio.log
+[2026-07-29T19:07:32.268Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-29T19:07:32.268Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-29T19:07:32.269Z] 
+[2026-07-29T19:07:32.312Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-pDH1EQ
+[2026-07-29T19:07:32.315Z] evidência: 2 linha(s) em C:\Users\sande\AppData\Local\Temp\mira-mem-pDH1EQ
+[2026-07-29T19:40:07.160Z] nova sessão; deck=/workspaces/.mira/templates; pid=25689
+[2026-07-29T19:40:07.172Z] 
+[2026-07-29T19:40:07.177Z]   Mira Studio
+[2026-07-29T19:40:07.181Z]   ─────────────────────────────────────────
+[2026-07-29T19:40:07.185Z]   deck:     /workspaces/.mira/templates
+[2026-07-29T19:40:07.190Z]   endereço: http://127.0.0.1:5398/
+[2026-07-29T19:40:07.194Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-29T19:40:07.197Z]   log:      /workspaces/.mira/templates/studio/mira-studio.log
+[2026-07-29T19:40:07.201Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-29T19:40:07.205Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-29T19:40:07.209Z] 
+[2026-07-29T19:40:07.285Z] evidência: 2 linha(s) em /tmp/mira-mem-PjOZCw
+[2026-07-29T19:40:07.295Z] evidência: 2 linha(s) em /tmp/mira-mem-PjOZCw
+[2026-07-29T19:40:07.308Z]   encerrando por SIGTERM.
+[2026-07-29T20:29:46.913Z] nova sessão; deck=/workspaces/.mira/templates; pid=55250
+[2026-07-29T20:29:46.949Z] 
+[2026-07-29T20:29:46.957Z]   Mira Studio
+[2026-07-29T20:29:46.965Z]   ─────────────────────────────────────────
+[2026-07-29T20:29:46.974Z]   deck:     /workspaces/.mira/templates
+[2026-07-29T20:29:46.982Z]   endereço: http://127.0.0.1:5398/
+[2026-07-29T20:29:46.990Z]   saúde:    http://127.0.0.1:5398/__mira/health
+[2026-07-29T20:29:46.997Z]   log:      /workspaces/.mira/templates/studio/mira-studio.log
+[2026-07-29T20:29:47.004Z]   servidor pronto; Ctrl+C encerra.
+[2026-07-29T20:29:47.011Z]   GPU dedicada é preferência do Chrome/Windows; o painel mostra o renderer realmente ativo.
+[2026-07-29T20:29:47.018Z] 
+[2026-07-29T20:29:47.107Z] evidência: 2 linha(s) em /tmp/mira-mem-GD5gCn
+[2026-07-29T20:29:47.117Z] evidência: 2 linha(s) em /tmp/mira-mem-GD5gCn
+[2026-07-29T20:29:47.136Z]   encerrando por SIGTERM.

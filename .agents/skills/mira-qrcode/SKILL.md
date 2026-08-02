@@ -1,23 +1,33 @@
 ---
 name: mira-qrcode
-description: Insere num slide do Mira (novo ou existente) um QR code escaneável, grande e centralizado, gerado a partir de um link ou texto fornecido pelo usuário. O QR é gerado LOCALMENTE na hora de criar o slide (pacote npm qrcode) e embutido como SVG inline no HTML, sem nenhuma dependência em tempo de apresentação: o slide funciona até aberto por file://, e não chama API externa nem biblioteca por CDN. Card limpo no padrão do mira-3d: só o título do slide (sem ícone, máximo 6 palavras) e o QR grande no centro, sem legenda com o link por extenso embaixo. Escaneabilidade manda no estilo: módulos escuros sobre cartão branco, zona de silêncio respeitada, laranja só na moldura e no título, nunca dentro dos módulos. Herda a Regra Zero do mira-animator, mas o QR fica ESTÁTICO (não se anima por cima dos módulos); o loop interno vai na moldura (pulso de brilho, cantos respirando). Use SEMPRE que o usuário disser "/mira-qrcode", "QR code", "qrcode", "código QR", "gera um QR", "coloca um QR no slide", "QR do link", "QR de inscrição", "QR de CTA", "código para escanear", ou pedir um slide com um link escaneável.
+description: >-
+  Insere num slide do Mira (novo ou existente) um QR code escaneável, grande e
+  centralizado, gerado de um link ou texto. O QR é gerado LOCALMENTE (pacote npm
+  qrcode) e embutido como SVG inline: funciona por file://, sem API nem CDN em
+  apresentação. Card limpo no padrão mira-3d (só o título, no máximo 6 palavras,
+  e o QR central, sem legenda do link); módulos escuros sobre cartão branco,
+  laranja só na moldura e no título. Herda a Regra Zero do mira-animator, mas o
+  QR fica ESTÁTICO e o loop interno vai na moldura. Use SEMPRE que o usuário
+  disser /mira-qrcode, QR code, qrcode, código QR, gera um QR, coloca um QR no
+  slide, QR do link, QR de inscrição, QR de CTA, código para escanear, ou pedir
+  um slide com um link escaneável.
 ---
 
 # Skill: QR code grande e central no slide
 
-Insere num slide um QR code escaneável, grande e centralizado, gerado de um link ou texto que o usuário fornece. Casos típicos: CTA de fim de deck, material complementar, link de inscrição.
+Insere num slide um QR code escaneável, grande e central, gerado de um link ou texto do usuário. Casos típicos: CTA de fim de deck, material complementar, link de inscrição.
 
-> **Fonte da verdade:** decisões congeladas em `BRAINSTORM_MIRA_QRCODE.md` (2026-06-11) e padrão visual validado no slide de teste `decks/teste-qrcode/index.html` (QR do link sandeco.com.br, 25x25 módulos, nível M). Quando em dúvida sobre CSS da moldura ou estrutura do card, copie do teste.
+> **Fonte da verdade:** decisões congeladas em `BRAINSTORM_MIRA_QRCODE.md` (2026-06-11) e padrão visual validado em `decks/testes/teste-qrcode/index.html` (QR de sandeco.com.br, 25x25 módulos, nível M). Em dúvida sobre CSS da moldura ou estrutura do card, copie do teste.
 
-## Como o QR é gerado (o ponto crítico, leia)
+## Como o QR é gerado
 
-O QR é gerado **localmente, no momento de criar o slide**, e **embutido como SVG inline** no HTML. Zero dependência na hora de apresentar: nada de biblioteca JS por CDN, nada de API externa de imagem. O slide funciona até aberto por `file://`. Se o link mudar depois, regere o slide pela própria skill.
+O QR é gerado **localmente, ao criar o slide**, e **embutido como SVG inline** no HTML. Zero dependência na apresentação: nada de JS por CDN nem API externa; o slide funciona aberto por `file://`. Se o link mudar, regere o slide pela skill.
 
 **NUNCA use `npx qrcode`.** Validado pelo usuário em 2026-06-11: `npx qrcode` **trava no Windows** (sem saída e sem erro). Use o pacote instalado localmente + um one-liner Node.
 
-Receita (o agente executa na criação do slide):
+Receita (executada na criação do slide):
 
-1. **Instale o pacote uma vez** numa pasta temporária reaproveitável (ex.: `%TEMP%/mira-qr`). Se já existir o `node_modules/qrcode` lá, pule esta etapa.
+1. **Instale o pacote uma vez** numa pasta temporária reaproveitável (ex.: `%TEMP%/mira-qr`). Se já existir `node_modules/qrcode` lá, pule esta etapa.
    ```
    npm install qrcode --no-save --prefix "<pasta-temp>"
    ```
@@ -25,14 +35,14 @@ Receita (o agente executa na criação do slide):
    ```
    node -e "require('qrcode').toString('DADO',{type:'svg',errorCorrectionLevel:'M',margin:0,color:{dark:'#0a0a0a',light:'#ffffff'}},(e,s)=>{if(e)throw e;process.stdout.write(s)})"
    ```
-   - `margin:0`: a zona de silêncio NÃO vem no SVG; quem garante ela é o padding do cartão branco (ver CSS). Não deixe o QR encostar na borda do cartão.
-   - `errorCorrectionLevel:'M'`: padrão. Use `'Q'` quando for escanear de longe (projeção em sala grande); custa mais módulos, mas tolera mais ruído.
+   - `margin:0`: a zona de silêncio NÃO vem no SVG; quem a garante é o padding do cartão branco (ver CSS). Não deixe o QR encostar na borda.
+   - `errorCorrectionLevel:'M'`: padrão. Use `'Q'` para escanear de longe (projeção em sala grande); custa mais módulos, mas tolera mais ruído.
    - `color`: módulos `#0a0a0a` sobre branco. **Não inverta** (claro sobre escuro não escaneia bem).
-3. **Pegue o SVG do stdout e embuta inline** dentro do `.qr-card`. Garanta que o `<svg>` mantenha o `viewBox` e o `shape-rendering="crispEdges"`, e **remova `width`/`height` fixos em pixels** se o pacote os tiver adicionado, para o CSS (`width:100%`) controlar o tamanho. Acrescente um comentário HTML com o dado codificado, ex.: `<!-- QR gerado localmente (pacote npm qrcode, ECC M) para https://... -->`.
+3. **Embuta o SVG do stdout inline** dentro do `.qr-card`. Mantenha o `viewBox` e o `shape-rendering="crispEdges"`, e **remova `width`/`height` fixos em pixels** que o pacote tenha adicionado, para o CSS (`width:100%`) controlar o tamanho. Acrescente um comentário HTML com o dado codificado, ex.: `<!-- QR gerado localmente (pacote npm qrcode, ECC M) para https://... -->`.
 
 ## REGRA ZERO (herdada, com ressalva do QR)
 
-Todo slide do Mira tem loop interno. Mas o **QR fica estático**: nada animado pode passar por cima dos módulos, senão quebra o escaneio. O loop interno vai **na moldura**:
+Todo slide do Mira tem loop interno, mas o **QR fica estático**: nada animado pode passar por cima dos módulos, senão quebra o escaneio. O loop interno vai **na moldura**:
 
 - **Pulso de brilho** no cartão (`box-shadow` laranja indo e voltando).
 - **Cantos respirando/orbitando** ao redor do cartão.
@@ -41,21 +51,30 @@ Descreva o loop em uma frase ("o cartão pulsa um brilho laranja e os quatro can
 
 ## Composição do card (padrão do mira-3d: limpo, elemento maximizado)
 
-- **Só o título + o QR.** Título no topo (sem ícone, máximo 6 palavras). **Sem legenda com o link por extenso** embaixo do código.
+- **Só o título + o QR.** Título no topo (sem ícone, máximo 6 palavras). **Sem legenda com o link por extenso** embaixo.
 - **QR grande e central.** Cartão branco com o QR ocupando boa parte da altura útil. No teste: `width: min(62vh, 80vw)`.
-- **Escaneabilidade manda no estilo:** módulos escuros (`#0a0a0a`) sobre **cartão branco**, zona de silêncio garantida pelo padding (28px no teste). A identidade laranja (`#FF904D`) fica **na moldura e no título**, nunca dentro dos módulos.
+- **Escaneabilidade manda no estilo:** módulos escuros (`#0a0a0a`) sobre **cartão branco**, zona de silêncio proporcional ao módulo (4 módulos, via --qr-quiet; padding fixo não cumpre a norma). O laranja (`#FF904D`) fica **na moldura e no título**, nunca dentro dos módulos.
 
 ## CSS + HTML canônico (gerar conforme o teste)
 
 ```html
 <style>
-  /* Cartão claro do QR: contraste alto e zona de silêncio embutida no padding */
+  /* Cartão claro do QR: contraste alto e zona de silêncio PROPORCIONAL AO MÓDULO.
+     A norma pede 4 módulos de margem em volta do QR. Padding fixo (ex.: 28px) NÃO cumpre
+     isso: num cartão de ~670px com 33 módulos, o módulo tem ~18px, e 4 módulos são ~74px.
+     Com padding fixo o QR ainda escaneia de perto, no celular novo, e falha justo onde
+     dói: projetado, de longe, com a câmera torta.
+     Ajuste --qr-modules para a versão real do seu QR (o pacote qrcode reporta; uma URL
+     típica com ECC M cai em 33 ou 37). */
   .qr-card {
+    --qr-modules: 33;                                   /* módulos por lado do QR gerado */
+    --qr-card-size: min(62vh, 80vw);
+    --qr-quiet: calc(4 * var(--qr-card-size) / (var(--qr-modules) + 8));  /* 4 módulos */
     position: relative;
     background: #ffffff;
     border-radius: 24px;
-    padding: 28px;
-    width: min(62vh, 80vw);
+    padding: var(--qr-quiet);
+    width: var(--qr-card-size);
     animation: qr-glow 3s ease-in-out infinite;   /* loop interno na moldura */
   }
   .qr-card svg { display: block; width: 100%; height: auto; }
@@ -99,16 +118,16 @@ Descreva o loop em uma frase ("o cartão pulsa um brilho laranja e os quatro can
 
 1. **Receber o destino + o dado.** Slide novo ou slide N do deck X, e o link/texto a codificar. Se faltar o dado, pergunte.
 2. **Gerar o QR localmente** (seção "Como o QR é gerado"): instalar `qrcode` em pasta temp (sem npx), rodar o one-liner Node, capturar o SVG.
-3. **Montar o card limpo:** título no topo (sem ícone, máx. 6 palavras, sem legenda do link embaixo), cartão branco com o QR inline grande e central, moldura com glow + cantos. Inserir como `<section>` no padrão do deck; preservar o sistema de navegação.
-4. **Conferir escaneabilidade:** módulos escuros sobre branco, não invertido, zona de silêncio (padding) preservada, nada animado por cima dos módulos.
-5. **Reportar.** Caminho do arquivo, o dado codificado e o nível de correção (M/Q), e o loop interno em uma frase. Lembre que não há dependência de runtime nem servidor: abre direto, inclusive por file://.
+3. **Montar o card limpo:** título no topo (sem ícone, máx. 6 palavras, sem legenda do link), cartão branco com o QR inline grande e central, moldura com glow + cantos. Inserir como `<section>` no padrão do deck; preservar o sistema de navegação.
+4. **Conferir escaneabilidade:** módulos escuros sobre branco, não invertido, zona de silêncio de 4 módulos preservada, nada animado por cima dos módulos. **Decodifique o QR de verdade** (ex.: `jsqr` sobre um print do cartão renderizado) antes de entregar: um QR bonito que não escaneia é um desastre em sala.
+5. **Reportar.** Caminho do arquivo, o dado codificado, o nível de correção (M/Q) e o loop interno em uma frase. Lembre que não há dependência de runtime nem servidor: abre direto, inclusive por file://.
 
 ## Checklist
 
 - [ ] QR gerado localmente (pacote `qrcode`), embutido como SVG inline; **não** usou `npx qrcode` nem CDN nem API externa.
 - [ ] Slide abre por `file://` sem nada externo (sem dependência de apresentação).
 - [ ] Módulos escuros (`#0a0a0a`) sobre cartão branco; cores não invertidas; ECC M (ou Q se for de longe).
-- [ ] Zona de silêncio preservada (padding do cartão); o QR não encosta na borda.
+- [ ] Zona de silêncio de **4 módulos** (`--qr-quiet`, não padding fixo); o QR não encosta na borda.
 - [ ] Card limpo: só título + QR; sem legenda com o link por extenso embaixo.
 - [ ] Título sem ícone, no máximo 6 palavras.
 - [ ] Loop interno só na moldura (glow + cantos); **nada animado sobre os módulos**; QR estático.

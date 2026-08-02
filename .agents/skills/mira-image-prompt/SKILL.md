@@ -1,84 +1,67 @@
 ---
 name: mira-image-prompt
 description: >
-  Cria prompts JSON estruturados para geração de imagens de alta qualidade com estética
-  luxuosa e cinematográfica. Use esta skill sempre que o usuário quiser gerar um prompt
-  de imagem, criar uma foto de produto, montar um prompt para IA de imagem, fotografar
-  produto virtualmente, criar imagem de comida, bebida, cosmético, joia, moda ou qualquer
-  item visual. Também deve ser ativada quando o usuário mencionar: "prompt para imagem",
+  Cria prompts JSON estruturados para geração de imagens de produto com estética
+  luxuosa e cinematográfica. Use sempre que o usuário quiser gerar um prompt de imagem,
+  criar foto de produto, ou fotografar (comida, bebida, cosmético, joia, moda ou qualquer
+  item visual) com IA. Ative também ao mencionar: "prompt para imagem",
   "gerar imagem de produto", "foto de produto com IA", "prompt para Midjourney/DALL-E/Flux",
-  "fotografar produto", ou pedir para "montar um prompt JSON de imagem".
+  "fotografar produto", "montar um prompt JSON de imagem".
 ---
 
 # Image Prompt Builder
 
-Skill para construir prompts JSON estruturados para geração de imagens de produtos com
-estética cinematográfica e luxuosa — otimizada para **Nano Banana 2 (Gemini 3.1 Flash Image)**
-via **Google Antigravity**, com suporte a todos os parâmetros nativos do modelo.
+Constrói prompts JSON de produtos com estética cinematográfica e luxuosa — otimizado para
+**Nano Banana 2 (Gemini 3.1 Flash Image)** via **Google Antigravity**, com todos os
+parâmetros nativos do modelo.
 
 ---
 
-## Fluxo obrigatório
+## Fluxo obrigatório (nesta ordem)
 
-Ao ser ativada, esta skill deve **SEMPRE** seguir estas etapas em ordem:
-
-1. **Entrevista guiada** — Coletar informações do usuário por blocos
-2. **Confirmação** — Mostrar resumo e pedir aprovação
-3. **Geração do JSON** — Montar o prompt estruturado final
+1. **Entrevista guiada** por blocos (Etapa 1)
+2. **Confirmação** — resumo e aprovação (Etapa 2)
+3. **Geração do JSON** final (Etapa 3)
 
 ---
 
 ## ETAPA 1 — Entrevista guiada por blocos
 
-Colete as informações em **3 rodadas de perguntas**, nunca tudo de uma vez.
-
----
+Colete em **3 rodadas**, nunca tudo de uma vez.
 
 ### Rodada 1 — Produto e Cena
 
-Pergunte ao usuário:
-
 > "Vamos montar seu prompt de imagem! Preciso entender o produto primeiro. Me conta:"
 
-1. **Tipo de produto**: O que é o produto? (ex: bolo de chocolate, frasco de perfume, tênis, shake, joia...)
-2. **Nome da marca**: Tem marca visível? Se sim, qual é o nome?
-3. **Aparência do produto**: Descreva a cor, textura, acabamento, forma. Quanto mais detalhe, melhor.
-4. **Elementos extras**: Tem acompanhamentos? (frutas, gelo, flores, folhas, reflexos...)
-5. **Tipo de cena**: Qual é o clima geral da imagem?
-   - Opções sugeridas: luxuoso e cinematográfico / clean e minimalista / dramático e contrastado / quente e aconchegante / futurista e tecnológico
-
----
+1. **Tipo de produto**: (ex: bolo de chocolate, frasco de perfume, tênis, shake, joia...)
+2. **Nome da marca**: tem marca visível? Qual?
+3. **Aparência**: cor, textura, acabamento, forma. Quanto mais detalhe, melhor.
+4. **Elementos extras**: acompanhamentos? (frutas, gelo, flores, folhas, reflexos...)
+5. **Tipo de cena**: qual o clima geral?
+   - luxuoso e cinematográfico / clean e minimalista / dramático e contrastado / quente e aconchegante / futurista e tecnológico
 
 ### Rodada 2 — Composição e Ação
 
 > "Ótimo! Agora me conta sobre o visual dinâmico da imagem:"
 
-6. **Ação principal**: O produto está estático ou tem movimento? (ex: líquido explodindo, partículas suspensas, fumaça, splash, corte revelando interior...)
-7. **Elementos suspensos no ar**: Quais elementos voam ao redor do produto? (ex: gotas, pó, fragmentos, folhas, cristais, bolhas...)
-8. **Superfície de apoio**: Onde o produto está? (ex: mármore branco polido, pedra preta fosca, madeira rústica, vidro transparente, superfície abstrata...)
-9. **Ângulo da câmera**: Como a câmera filma o produto?
-   - Opções: ângulo baixo (dominância) / nível dos olhos / levemente acima / macro extremo / ângulo 3/4
-
----
+6. **Ação principal**: estático ou em movimento? (ex: líquido explodindo, partículas suspensas, fumaça, splash, corte revelando interior...)
+7. **Elementos suspensos no ar**: o que voa ao redor? (ex: gotas, pó, fragmentos, folhas, cristais, bolhas...)
+8. **Superfície de apoio**: onde está? (ex: mármore branco polido, pedra preta fosca, madeira rústica, vidro transparente, superfície abstrata...)
+9. **Ângulo da câmera**: ângulo baixo (dominância) / nível dos olhos / levemente acima / macro extremo / ângulo 3/4
 
 ### Rodada 3 — Iluminação, Cores e Especificações Técnicas
 
 > "Quase lá! Agora a parte visual e técnica:"
 
-10. **Estilo de iluminação**: Como você quer a luz?
-    - Opções: estúdio clean e brilhante / dramático com sombras / luz natural suave / luz de produto de luxo com rim light / luz néon colorida
-
-11. **Paleta de cores do fundo**: Qual cor/gradiente domina o fundo? (ex: preto carvão com bokeh âmbar, gradiente rosa para champanhe, azul escuro para branco...)
-
-12. **Cores de destaque (accents)**: Quais cores surgem nos elementos ao redor? (ex: dourado, prata, vermelho vivo, tons pastéis...)
-
-13. **Resolução**: Qual nível de qualidade você precisa?
+10. **Estilo de iluminação**: estúdio clean e brilhante / dramático com sombras / luz natural suave / luz de produto de luxo com rim light / luz néon colorida
+11. **Paleta do fundo**: qual cor/gradiente domina? (ex: preto carvão com bokeh âmbar, gradiente rosa para champanhe, azul escuro para branco...)
+12. **Cores de destaque (accents)**: quais surgem ao redor? (ex: dourado, prata, vermelho vivo, tons pastéis...)
+13. **Resolução**:
     - `512px` — iteração rápida / testes
     - `1K` — redes sociais e uso digital
     - `2K` — conteúdo profissional
     - `4K` — produção máxima / impressão
-
-14. **Aspect Ratio**: Qual proporção da imagem? (padrão: `16:9`)
+14. **Aspect Ratio** (padrão: `16:9`):
     - `16:9` — widescreen (padrão) ✅
     - `1:1` — quadrado (Instagram feed)
     - `9:16` — vertical (Stories, Reels, TikTok)
@@ -86,16 +69,14 @@ Pergunte ao usuário:
     - `3:4` — retrato
     - `4:1` / `1:4` — banner horizontal / vertical
     - `8:1` / `1:8` — super banner
-
 15. **Estilo de renderização**: Fotorrealista ultra-detalhado / ilustração / 3D render / foto analógica / outro?
-
-16. **Algo mais?**: Algum detalhe especial que você quer garantir na imagem?
+16. **Algo mais?**: algum detalhe especial a garantir?
 
 ---
 
 ## ETAPA 2 — Confirmação
 
-Após coletar todas as respostas, mostre um **resumo em tópicos** para o usuário confirmar:
+Mostre um **resumo em tópicos** para o usuário confirmar. Só avance após confirmação.
 
 ```
 📋 RESUMO DO PROMPT:
@@ -116,13 +97,11 @@ Após coletar todas as respostas, mostre um **resumo em tópicos** para o usuár
 Está correto? Posso montar o prompt JSON agora?
 ```
 
-Só avance para a Etapa 3 após confirmação do usuário.
-
 ---
 
 ## ETAPA 3 — Geração do JSON
 
-Com as respostas confirmadas, monte o prompt seguindo **exatamente** este schema:
+Com as respostas confirmadas, siga **exatamente** este schema:
 
 ```json
 {
@@ -179,25 +158,25 @@ Com as respostas confirmadas, monte o prompt seguindo **exatamente** este schema
 
 ## Regras de qualidade do JSON
 
-- **Adjetivos de luxo e premium** são obrigatórios em todo campo descritivo
-- **Movimento congelado** deve sempre estar presente em `action` e `surrounding_elements`
-- **Superfícies reflexivas** devem ser mencionadas em `placement`
-- O produto é sempre o **herói centralizado** da cena
-- `surrounding_elements` deve ter **mínimo 3, máximo 6 itens**
-- `lighting.effects` deve ter **sempre 3 ou 4 efeitos** (rim, key, back/top + extra opcional)
-- `scene_type` deve seguir o padrão: `"[adjetivo de velocidade/estilo] [nicho] photography"`
-- `output_specs.resolution` deve usar os valores nativos do Nano Banana 2: `512px`, `1K`, `2K` ou `4K`
-- `output_specs.aspect_ratio` deve usar os valores nativos suportados pelo modelo
-- `output_specs.model` deve sempre ser `"nano-banana-2"`
-- `output_specs.synthid_watermark` deve sempre ser `true` (padrão obrigatório do Google)
+- **Adjetivos de luxo/premium** obrigatórios em todo campo descritivo
+- **Movimento congelado** sempre presente em `action` e `surrounding_elements`
+- **Superfícies reflexivas** mencionadas em `placement`
+- Produto sempre o **herói centralizado** da cena
+- `surrounding_elements`: **mínimo 3, máximo 6 itens**
+- `lighting.effects`: **sempre 3 ou 4 efeitos** (rim, key, back/top + extra opcional)
+- `scene_type`: padrão `"[adjetivo de velocidade/estilo] [nicho] photography"`
+- `output_specs.resolution`: valores nativos `512px`, `1K`, `2K` ou `4K`
+- `output_specs.aspect_ratio`: valores nativos suportados pelo modelo
+- `output_specs.model`: sempre `"nano-banana-2"`
+- `output_specs.synthid_watermark`: sempre `true` (padrão obrigatório do Google)
 
 ---
 
 ## Após gerar o JSON
 
-Apresente o JSON formatado em bloco de código e adicione:
+Apresente o JSON em bloco de código e adicione:
 
-> 💡 **Dica de uso no Antigravity:** Cole este JSON diretamente no campo de prompt do Nano Banana 2 no Google Antigravity. Os campos `output_specs` são interpretados nativamente pelo modelo — não é necessário nenhum prefixo adicional.
+> 💡 **Dica de uso no Antigravity:** Cole este JSON diretamente no campo de prompt do Nano Banana 2 no Google Antigravity. Os campos `output_specs` são interpretados nativamente pelo modelo — sem prefixo adicional.
 
 Pergunte se o usuário quer ajustar algum campo, trocar o aspect ratio ou gerar variações.
 
@@ -205,4 +184,4 @@ Pergunte se o usuário quer ajustar algum campo, trocar o aspect ratio ou gerar 
 
 ## Exemplos de referência
 
-Para inspiração dos padrões de linguagem, consulte `/mnt/skills/user/image-prompt-builder/references/examples.md` se disponível.
+Para padrões de linguagem, consulte `references/Examples.md` se disponível.

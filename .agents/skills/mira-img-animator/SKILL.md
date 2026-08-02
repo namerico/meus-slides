@@ -1,53 +1,64 @@
 ---
 name: mira-img-animator
 description: >
-  Cria animações D3.js a partir de imagens fornecidas pelo usuário. Transforma fotos, diagramas,
-  logos ou qualquer imagem em visualizações animadas e interativas usando D3.js + Canvas/SVG.
-  Use este skill sempre que o usuário pedir para animar uma imagem, criar efeitos visuais a partir
-  de uma imagem, transformar imagem em partículas, criar animações baseadas em imagem, gerar
-  visualizações interativas de uma imagem, ou qualquer combinação de "imagem + animação + D3".
-  Também deve ser usado quando o usuário mencionar termos como "partículas", "dissolve",
-  "explode", "morph", "wave", "pixel art animado", "imagem animada com D3", "efeito visual
-  em imagem", "animação interativa de imagem", ou pedir para transformar uma imagem estática
-  em algo dinâmico e interativo. Funciona com JPG, PNG, SVG, GIF e WebP.
+  Transforma imagens (fotos, logos, diagramas) em animações D3.js interativas e self-contained.
+  Use sempre que o usuário pedir para animar uma imagem, criar efeitos visuais a partir de uma
+  imagem, transformar imagem em partículas, gerar visualizações interativas de uma imagem, ou
+  combinar "imagem + animação + D3". Também quando mencionar "partículas", "dissolve", "explode",
+  "morph", "wave", "pixel art animado", "imagem animada com D3", "efeito visual em imagem",
+  "animação interativa de imagem", ou transformar uma imagem estática em algo dinâmico.
+  Funciona com JPG, PNG, SVG, GIF e WebP.
 ---
 
 # D3 Image Animator
 
-Transforma imagens em animações D3.js interativas. Foco principal em **fotos e imagens reais
-(JPG, PNG)**, gerando sempre um **HTML standalone** (arquivo único, self-contained, com D3 via CDN
-e imagem embutida em base64).
+Transforma imagens em animações D3.js interativas, geradas **dentro de um deck do Mira** e prontas
+para abrir por `file://` (offline). O resultado é um HTML self-contained: imagem embutida em base64
+e D3 **vendorado localmente** (nunca CDN em runtime, igual ao resto do Mira). Foco em **fotos e
+imagens reais (JPG, PNG)**.
+
+## Regras herdadas (obrigatórias)
+
+1. **Idioma**: siga `agents/_shared/idioma.md` — todo texto visível revisado, acentuação 100% correta.
+2. **Offline-first**: o deck do Mira nasce offline. Vendore o D3 em `<deck>/assets/vendor/` e aponte
+   por caminho relativo. Nada de CDN em runtime (quebra atrás de firewall e por `file://`).
+3. **Nunca destrua o original**: a imagem-fonte é copiada para `assets/`, nunca movida nem editada.
 
 ## Fluxo de Trabalho
 
 ### 1. Receber a Imagem
 
-A imagem pode vir de:
+Origem possível:
 
-- **Upload direto** → arquivo em `/mnt/user-data/uploads/`
-- **URL da web** → baixar via `web_fetch`
-- **Imagem no contexto** → Claude já vê a imagem e pode analisar seus elementos
+- **Caminho passado pelo usuário** → copie a imagem para `decks/<deck>/assets/`.
+- **Imagem já no deck** → use a que estiver em `decks/<deck>/assets/`.
+- **URL da web** → baixe para `decks/<deck>/assets/` (`curl -sL <url> -o decks/<deck>/assets/<nome>`).
+- **Imagem no contexto** → o Claude já a vê e pode analisar seus elementos.
 
-**Formatos suportados:** JPG e PNG são os formatos primários. WebP, GIF, SVG e BMP
-também funcionam mas podem precisar de conversão via `scripts/image_to_base64.py --convert-to png`.
+Se não houver um deck alvo definido, pergunte em qual deck (`decks/<deck>/`) a animação deve entrar.
 
-**Otimização para fotos:** Fotos reais tendem a ser grandes e com muitos pixels relevantes.
-Sempre redimensionar para max 800px de largura antes de processar para partículas.
-Usar `scripts/resize_image.py` antes de `scripts/extract_pixels.py`.
+**Formatos:** JPG e PNG são primários. WebP, GIF, SVG e BMP também funcionam, mas podem precisar de
+conversão via `scripts/image_to_base64.py --convert-to png`.
+
+**Otimização para fotos:** fotos reais são grandes e densas. Redimensione para max 800px de largura
+antes de processar partículas — use `scripts/resize_image.py` antes de `scripts/extract_pixels.py`.
+
+Os scripts ficam na própria skill. Da raiz do projeto o caminho é `agents/mira-img-animator/scripts/`;
+instalado num projeto do usuário, vira `.claude/skills/mira-img-animator/scripts/`.
 
 ### 2. Analisar a Imagem
 
-Antes de gerar código, analisar a imagem visualmente para decidir a melhor abordagem:
+Antes de gerar código, analise a imagem para decidir a abordagem:
 
 - **Tipo de conteúdo**: foto, logo, diagrama, ilustração, ícone, gráfico, texto
 - **Complexidade**: simples (poucas formas), média, complexa (foto detalhada)
-- **Cores dominantes**: extrair paleta de cores para usar na animação
+- **Cores dominantes**: extrair paleta para usar na animação
 - **Elementos identificáveis**: formas geométricas, texto, contornos, regiões
 
 ### 3. Escolher o Tipo de Animação
 
-Consultar `references/ANIMATION_CATALOG.md` para ver o catálogo completo de efeitos disponíveis.
-A escolha depende do tipo de imagem e do efeito desejado pelo usuário.
+Catálogo completo de efeitos em `references/ANIMATION_CATALOG.md`. A escolha depende do tipo de imagem
+e do efeito desejado.
 
 **Regra geral de decisão:**
 
@@ -59,41 +70,45 @@ A escolha depende do tipo de imagem e do efeito desejado pelo usuário.
 | Texto/tipografia | Partículas de texto, scramble, typewriter |
 | Gráfico/chart | Transições de dados, staggered bars |
 
-Se o usuário não especificou o tipo de animação, perguntar mostrando 2-3 opções
-que fazem sentido para a imagem fornecida, com uma breve descrição visual de cada.
+Se o usuário não especificou o tipo, pergunte mostrando 2-3 opções que fazem sentido para a imagem,
+com breve descrição visual de cada.
 
 ### 4. Gerar o Código
 
-Consultar `references/D3_PATTERNS.md` para padrões de código D3.js testados e otimizados.
+Padrões D3.js testados em `references/D3_PATTERNS.md`.
 
-**Regras fundamentais para o código gerado:**
+**Regras fundamentais do código gerado:**
 
-1. **HTML standalone** — Arquivo único `.html` com tudo embutido (CSS, JS, D3 via CDN)
-2. **D3.js v7** — Sempre usar a versão 7 via CDN: `https://d3js.org/d3.v7.min.js`
-3. **Canvas para performance** — Usar Canvas (não SVG) quando houver mais de 5.000 elementos
-4. **SVG para interatividade** — Usar SVG quando precisar de hover/click em elementos individuais
-5. **Imagem como base64** — Converter a imagem para base64 e embutir no HTML para ser self-contained
-6. **Responsivo** — Animação deve se adaptar ao tamanho da tela
-7. **Controles** — Incluir botões de play/pause/reset quando relevante
-8. **Performance** — Usar `requestAnimationFrame` para loops, limitar partículas a ~50.000
+1. **HTML self-contained** — arquivo `.html` com CSS e JS embutidos; imagem em base64.
+2. **D3.js v7 vendorado** — referencie `assets/vendor/d3.v7.min.js` por caminho relativo, nunca CDN.
+   Vendore uma vez por deck (se ainda não existir): `curl -sL https://d3js.org/d3.v7.min.js -o
+   decks/<deck>/assets/vendor/d3.v7.min.js`. É a mesma cópia que o `/mira-offline` religa nos decks.
+3. **Canvas para performance** — use Canvas (não SVG) com mais de 5.000 elementos.
+4. **SVG para interatividade** — use SVG para hover/click em elementos individuais.
+5. **Imagem como base64** — converter e embutir no HTML para não depender de arquivo externo.
+6. **Responsivo** — a animação se adapta ao tamanho da tela.
+7. **Controles** — botões play/pause/reset quando relevante.
+8. **Performance** — `requestAnimationFrame` para loops, limitar partículas a ~50.000.
 
-Para converter a imagem em base64, usar o script auxiliar:
-
-```bash
-python scripts/image_to_base64.py <caminho_da_imagem>
-```
-
-Para extrair a paleta de cores dominantes:
+Converter imagem em base64:
 
 ```bash
-python scripts/extract_palette.py <caminho_da_imagem> --colors 6
+python agents/mira-img-animator/scripts/image_to_base64.py <caminho_da_imagem>
 ```
 
-Para extrair dados de pixels (posição + cor) da imagem para animação de partículas:
+Extrair paleta de cores dominantes:
 
 ```bash
-python scripts/extract_pixels.py <caminho_da_imagem> --sample-rate 4 --min-alpha 128
+python agents/mira-img-animator/scripts/extract_palette.py <caminho_da_imagem> --colors 6
 ```
+
+Extrair dados de pixels (posição + cor) para partículas:
+
+```bash
+python agents/mira-img-animator/scripts/extract_pixels.py <caminho_da_imagem> --sample-rate 4 --min-alpha 128
+```
+
+(Instalado, troque `agents/mira-img-animator/scripts/` por `.claude/skills/mira-img-animator/scripts/`.)
 
 ### 5. Estrutura do HTML Gerado
 
@@ -104,7 +119,7 @@ python scripts/extract_pixels.py <caminho_da_imagem> --sample-rate 4 --min-alpha
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>[Nome da Animação]</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="assets/vendor/d3.v7.min.js"></script>
     <style>
         /* Reset + estilos da animação */
         /* Controles de UI quando aplicável */
@@ -126,25 +141,23 @@ python scripts/extract_pixels.py <caminho_da_imagem> --sample-rate 4 --min-alpha
 
 ### 6. Salvar e Entregar
 
-O output é **sempre HTML standalone** — arquivo único com tudo embutido.
+Salve o HTML **dentro do deck**, em `decks/<deck>/` (ex.: `decks/<deck>/animacao-<nome>.html`), com
+o D3 vendorado em `decks/<deck>/assets/vendor/` e a imagem-fonte copiada para `decks/<deck>/assets/`.
+Ao terminar, reporte o caminho do arquivo e lembre que ele abre por duplo clique (`file://`), sem
+internet.
 
-Salvar o HTML gerado e usar `present_files` para entregar:
-
-```python
-output_path = "/mnt/user-data/outputs/animacao_d3_[nome].html"
-```
-
-**Nota:** Se por algum motivo o usuário pedir React (.jsx), consultar `references/REACT_PATTERNS.md`
-para adaptação, mas o padrão é sempre HTML standalone.
+**Nota:** se o usuário pedir React (.jsx), consulte `references/REACT_PATTERNS.md`; o padrão do Mira
+é o HTML self-contained acima.
 
 ## Diretrizes de Qualidade
 
-- **Estética importa**: seguir princípios do skill `frontend-design` — cores coesas, tipografia elegante, backgrounds atmosféricos
-- **Animação fluida**: mínimo 30fps, idealmente 60fps. Testar performance com imagens grandes
-- **Interatividade significativa**: mouse hover, click, drag devem fazer algo visualmente satisfatório
-- **Código limpo**: comentários claros em português, variáveis com nomes descritivos
-- **Fallback gracioso**: se a imagem não carregar, mostrar mensagem amigável
+- **Estética**: cores coesas com o **tema do deck** (use as CSS variables do deck quando existirem),
+  tipografia elegante, backgrounds atmosféricos.
+- **Animação fluida**: mínimo 30fps, idealmente 60fps; testar com imagens grandes.
+- **Interatividade significativa**: hover, click, drag devem fazer algo visualmente satisfatório.
+- **Código limpo**: comentários em português, variáveis com nomes descritivos.
+- **Fallback gracioso**: se a imagem não carregar, mostrar mensagem amigável.
 
 ## Tratamento de Erros
 
-Consultar `references/ERRORS.md` para cenários de erro e como tratá-los.
+Cenários de erro e tratamento em `references/ERRORS.md`.

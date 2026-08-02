@@ -1,9 +1,9 @@
 ---
 name: mira-visuals
 description: >
-  Gerador unificado de imagens estáticas para os slides do Mira: painéis retangulares
-  (1920x800), infográficos quadrados (1920x1920), diagramas técnicos e gráficos de dados —
-  tudo via D3.js com captura em PNG, ou fotorrealismo via prompt JSON (mira-image-prompt).
+  Gera imagens estáticas para slides do Mira: painéis 1920x800, infográficos 1920x1920,
+  diagramas técnicos e gráficos — via D3.js com captura PNG, ou fotorrealismo via prompt
+  JSON (mira-image-prompt).
   Use esta skill SEMPRE que o usuário disser: "criar imagem", "gerar imagem", "ilustração",
   "diagrama", "gráfico estático", "infográfico", "resumo visual", "quadro resumo",
   "imagem para o slide", "visual para o deck", ou qualquer variação sobre criar elementos
@@ -43,11 +43,19 @@ Fusão das antigas `mira-illustrator` (painéis 1920x800) e `mira-infographic` (
 
 ## Captura
 
-Para converter HTML em PNG use `scripts/capture.js` (Puppeteer):
+Para converter HTML em PNG use o script desta skill, `scripts/capture.cjs` (Puppeteer).
+O caminho é relativo à pasta da skill; da raiz do projeto:
 
 ```bash
-node scripts/capture.js <input.html> <output.png> <largura> <altura>
+node agents/mira-visuals/scripts/capture.cjs <input.html> <output.png> <largura> <altura>
 ```
+
+Instalado num projeto do usuário, o caminho vira `.claude/skills/mira-visuals/scripts/capture.cjs`.
+
+É `.cjs` de propósito (mesmo padrão do `mira-slide-to-video`): roda igual no repo-fonte, que é
+`"type": "module"`, e instalado, sem virar ESM. Se o `puppeteer` não estiver instalado, o script
+cai para `puppeteer-core` + o Chrome do cache; para forçar um binário, use
+`PUPPETEER_EXECUTABLE_PATH`.
 
 ## Checklist final
 

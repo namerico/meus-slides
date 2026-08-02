@@ -1,7 +1,7 @@
 {
-  "version": "0.1.19",
+  "version": "0.1.50",
   "installedAt": "2026-06-16T02:02:09.170Z",
-  "updatedAt": "2026-06-16T02:02:09.170Z",
+  "updatedAt": "2026-07-31T22:34:37.366Z",
   "engines": [
     "codex",
     "gemini-cli",
@@ -32,7 +32,22 @@
     "mira-image-prompt",
     "mira-img-animator",
     "mira-image-template",
-    "mira-chart"
+    "mira-chart",
+    "mira-webview",
+    "mira-survey",
+    "mira-quiz",
+    "mira-tactics",
+    "mira-remote-control",
+    "mira-svg-morph",
+    "mira-icon-morph",
+    "mira-svg-animator",
+    "mira-animated-typing",
+    "mira-studio",
+    "mira-studio-full",
+    "mira-slide-to-video",
+    "mira-offline",
+    "mira-chart-race",
+    "mira-fast"
   ],
   "createdFiles": [
     ".agents/skills/mira-new",
@@ -61,6 +76,22 @@
     ".agents/skills/mira-chart",
     "AGENTS.md",
     "GEMINI.md",
-    "mira-templates"
+    "mira-templates",
+    ".agents/skills/mira-webview",
+    ".agents/skills/mira-survey",
+    ".agents/skills/mira-quiz",
+    ".agents/skills/mira-tactics",
+    ".agents/skills/mira-remote-control",
+    ".agents/skills/mira-svg-morph",
+    ".agents/skills/mira-icon-morph",
+    ".agents/skills/mira-svg-animator",
+    ".agents/skills/mira-animated-typing",
+    ".agents/skills/mira-studio",
+    ".agents/skills/mira-studio-full",
+    ".agents/skills/mira-slide-to-video",
+    ".agents/skills/mira-offline",
+    ".agents/skills/mira-chart-race",
+    ".mira/bin/version-notice.js",
+    ".agents/skills/mira-fast"
   ]
 }
