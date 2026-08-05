@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Futuro da IA</title>
+    <!-- Dependências -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    
+    <!-- MIRA CSS (Simulado usando as vars do mira-dark para funcionar standalone) -->
+    <style>
+        :root {
+            --mira-primary: #FF904D;
+            --mira-crop: #35D07F;
+            --mira-bg: #000000;
+            --mira-text: #ffffff;
+            --mira-text-soft: rgba(255, 255, 255, 0.70);
+            --mira-text-softer: rgba(255, 255, 255, 0.50);
+            --mira-card-bg: rgba(255, 255, 255, 0.05);
+            --mira-card-border: rgba(255, 255, 255, 0.10);
+            --mira-glow-soft: rgba(255, 144, 77, 0.15);
+            --mira-glow-strong: rgba(255, 144, 77, 0.25);
+            --mira-icon-bg: rgba(255, 144, 77, 0.15);
+            --mira-icon-border: rgba(255, 144, 77, 0.30);
+            --mira-pill-bg: rgba(255, 255, 255, 0.04);
+            --mira-pill-border: rgba(255, 255, 255, 0.08);
+            --mira-stage-glow: rgba(255, 144, 77, 0.06);
+            --mira-accent-2: #FFC766;
+        }
+
+        body {
+            background: var(--mira-bg);
+            color: var(--mira-text);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+
+        .attribute-pill {
+            background: var(--mira-pill-bg);
+            border: 1px solid var(--mira-pill-border);
+            transition: all 0.25s ease;
+            border-radius: 9999px;
+        }
+
+        .attribute-pill:hover {
+            background: var(--mira-icon-bg);
+            border-color: var(--mira-icon-border);
+            transform: translateY(-3px);
+        }
+
+        /* Glassmorphism e Ajuste de Escala (7/10 para presença visual sem sufocar) */
+        .stage-container {
+            transform: scale(0.7);
+            transform-origin: center;
+        }
+        
+        .futuro-card {
+            background: var(--mira-card-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--mira-card-border);
+            box-shadow: 0 15px 45px var(--mira-glow-soft);
+            border-radius: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: box-shadow 0.5s ease;
+        }
+        
+        .futuro-card:hover {
+            box-shadow: 0 25px 60px var(--mira-glow-strong);
+        }
+        
+        .futuro-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center p-8 overflow-hidden relative">
+
+    <!-- Fundo abstrato sutil -->
+    <div id="bg-stage" class="absolute inset-0 z-0 pointer-events-none opacity-40"></div>
+
+    <div class="relative z-10 w-full max-w-5xl flex flex-col items-center">
+        <!-- Textos Promocionais -->
+        <div class="text-center mb-0 mt-8 opacity-0 translate-y-6" id="title-section">
+            <h1 class="text-6xl md:text-7xl font-black tracking-tight mb-4 uppercase drop-shadow-lg" style="color: var(--mira-primary)">
+                O Futuro da IA
+            </h1>
+            <p class="text-xl md:text-2xl font-light max-w-2xl mx-auto" style="color: var(--mira-text-soft)">
+                Da automação de tarefas à orquestração de ecossistemas autônomos.
+            </p>
+        </div>
+
+        <!-- Card de Animação Neural (7/10 scale via css class) -->
+        <div class="w-full flex justify-center items-center stage-container my-0 opacity-0" id="card-section">
+            <div class="futuro-card w-[1040px] h-[580px] flex items-center justify-center">
+                <div id="neural-stage" class="w-full h-full relative"></div>
+            </div>
+        </div>
+
+        <!-- Pílulas (Rodapé) -->
+        <div class="flex items-center justify-center gap-4 mt-2 opacity-0 translate-y-4" id="footer-section">
+            <span class="attribute-pill px-6 py-2 text-sm font-semibold tracking-widest uppercase text-white flex items-center gap-2">
+                <i data-lucide="zap" class="w-4 h-4" style="color: var(--mira-primary)"></i> Autonomia
+            </span>
+            <span class="attribute-pill px-6 py-2 text-sm font-semibold tracking-widest uppercase text-white flex items-center gap-2">
+                <i data-lucide="git-merge" class="w-4 h-4" style="color: var(--mira-primary)"></i> Orquestração
+            </span>
+            <span class="attribute-pill px-6 py-2 text-sm font-semibold tracking-widest uppercase text-white flex items-center gap-2">
+                <i data-lucide="expand" class="w-4 h-4" style="color: var(--mira-primary)"></i> Expansão
+            </span>
+        </div>
+    </div>
+
+    <script>
+        // Iniciar ícones Lucide
+        lucide.createIcons();
+
+        // Animação de entrada dos textos
+        setTimeout(() => {
+            const title = document.getElementById('title-section');
+            title.style.transition = 'all 1s cubic-bezier(0.16, 1, 0.3, 1)';
+            title.style.opacity = '1';
+            title.style.transform = 'translateY(0)';
+        }, 100);
+
+        setTimeout(() => {
+            const card = document.getElementById('card-section');
+            card.style.transition = 'opacity 1.5s ease';
+            card.style.opacity = '1';
+        }, 600);
+
+        setTimeout(() => {
+            const footer = document.getElementById('footer-section');
+            footer.style.transition = 'all 1s cubic-bezier(0.16, 1, 0.3, 1)';
+            footer.style.opacity = '1';
+            footer.style.transform = 'translateY(0)';
+        }, 3200);
+
+
+        // ----------------------------------------------------
+        // ANIMAÇÃO DE FUNDO (Partículas sutis flutuando em loop)
+        // ----------------------------------------------------
+        (function bgAnim() {
+            const svg = d3.select('#bg-stage').append('svg')
+                .attr('width', '100%')
+                .attr('height', '100%');
+            const primary = getComputedStyle(document.documentElement).getPropertyValue('--mira-primary').trim();
+            
+            const particles = Array.from({length: 40}, () => ({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                r: Math.random() * 2.5 + 0.5,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4
+            }));
+            
+            const dots = svg.selectAll('circle').data(particles).join('circle')
+                .attr('cx', d => d.x).attr('cy', d => d.y).attr('r', d => d.r)
+                .attr('fill', primary).attr('opacity', 0.15);
+                
+            d3.timer(() => {
+                dots.attr('cx', d => {
+                    d.x += d.vx;
+                    if (d.x < 0) d.x = window.innerWidth;
+                    if (d.x > window.innerWidth) d.x = 0;
+                    return d.x;
+                }).attr('cy', d => {
+                    d.y += d.vy;
+                    if (d.y < 0) d.y = window.innerHeight;
+                    if (d.y > window.innerHeight) d.y = 0;
+                    return d.y;
+                });
+            });
+        })();
+
+        // ----------------------------------------------------
+        // ANIMAÇÃO NEURAL COREOGRAFADA + LOOP PERPÉTUO
+        // ----------------------------------------------------
+        (function neuralNetworkAnim() {
+            const W = 1040, H = 580;
+            const cx = W / 2, cy = H / 2;
+            
+            const svg = d3.select('#neural-stage').append('svg')
+                .attr('viewBox', `0 0 ${W} ${H}`)
+                .attr('width', '100%')
+                .attr('height', '100%');
+                
+            const primary = getComputedStyle(document.documentElement).getPropertyValue('--mira-primary').trim();
+            const accent = getComputedStyle(document.documentElement).getPropertyValue('--mira-accent-2').trim();
+            
+            // Definição do núcleo
+            const core = { x: cx, y: cy, r: 42 };
+            
+            // Definição dos nós periféricos
+            const numNodes = 14;
+            const nodes = Array.from({ length: numNodes }, (_, i) => {
+                const angle = (i / numNodes) * Math.PI * 2;
+                const distance = 160 + Math.random() * 110;
+                return {
+                    id: i,
+                    angle: angle,
+                    distance: distance,
+                    baseDistance: distance,
+                    x: cx + Math.cos(angle) * distance,
+                    y: cy + Math.sin(angle) * distance,
+                    r: 6 + Math.random() * 8,
+                    speed: 0.001 + Math.random() * 0.002,
+                    connected: false
+                };
+            });
+            
+            // 1. Núcleo central emergindo (Fase 1: Entrada Coreografada)
+            
+            // Definições SVG (Gradientes e Filtros de Brilho)
+            const defs = svg.append('defs');
+            
+            // Gradiente do Core
+            const radialGrad = defs.append('radialGradient')
+                .attr('id', 'coreGradient')
+                .attr('cx', '50%').attr('cy', '50%').attr('r', '50%');
+            radialGrad.append('stop').attr('offset', '0%').attr('stop-color', primary).attr('stop-opacity', 0.7);
+            radialGrad.append('stop').attr('offset', '100%').attr('stop-color', primary).attr('stop-opacity', 0);
+            
+            // Brilho difuso em volta de tudo (Filtro blur)
+            const filter = defs.append('filter').attr('id', 'glow');
+            filter.append('feGaussianBlur').attr('stdDeviation', '4').attr('result', 'coloredBlur');
+            const feMerge = filter.append('feMerge');
+            feMerge.append('feMergeNode').attr('in', 'coloredBlur');
+            feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
+
+            // Aura do Núcleo
+            const coreGlow = svg.append('circle')
+                .attr('cx', cx).attr('cy', cy)
+                .attr('r', 0)
+                .attr('fill', 'url(#coreGradient)')
+                .attr('opacity', 0);
+                
+            // Circulo sólido do Núcleo
+            const coreCircle = svg.append('circle')
+                .attr('cx', cx).attr('cy', cy)
+                .attr('r', 0)
+                .attr('fill', '#ffffff')
+                .attr('stroke', primary)
+                .attr('stroke-width', 5)
+                .attr('opacity', 0)
+                .attr('filter', 'url(#glow)');
+            
+            // Texto/Ícone no núcleo
+            const coreIcon = svg.append('text')
+                .text('IA')
+                .attr('x', cx).attr('y', cy)
+                .attr('dy', '0.35em')
+                .attr('text-anchor', 'middle')
+                .attr('font-size', '20px')
+                .attr('font-weight', '900')
+                .attr('fill', primary)
+                .attr('opacity', 0);
+
+            // Inicia coreografia do núcleo
+            coreGlow.transition().duration(1500).delay(500).ease(d3.easeCubicOut)
+                .attr('r', 180).attr('opacity', 1);
+            coreCircle.transition().duration(1200).delay(800).ease(d3.easeElasticOut)
+                .attr('r', core.r).attr('opacity', 1);
+            coreIcon.transition().duration(1000).delay(1200).ease(d3.easeCubicOut)
+                .attr('opacity', 1);
+                
+            // 2. Conexões Sequenciais e Construção da Rede
+            const linksG = svg.append('g');
+            const nodesG = svg.append('g');
+            
+            nodes.forEach((n, i) => {
+                const delay = 1400 + i * 120;
+                
+                // Linha de conexão primária (Core -> Nó)
+                const link = linksG.append('line')
+                    .attr('x1', cx).attr('y1', cy)
+                    .attr('x2', cx).attr('y2', cy) // Origina do centro
+                    .attr('stroke', primary)
+                    .attr('stroke-width', 1.5)
+                    .attr('opacity', 0);
+                    
+                link.transition().duration(700).delay(delay).ease(d3.easeCubicOut)
+                    .attr('x2', n.x).attr('y2', n.y).attr('opacity', 0.5)
+                    .on('end', () => n.connected = true);
+                    
+                n.linkElem = link;
+                
+                // Nó periférico
+                const nodeCircle = nodesG.append('circle')
+                    .attr('cx', cx).attr('cy', cy) // Dispara do centro? Melhor animar raio in-place
+                    .attr('r', 0)
+                    .attr('fill', 'rgba(255,255,255,0.05)')
+                    .attr('stroke', accent)
+                    .attr('stroke-width', 2.5);
+                    
+                // Movimenta o cx,cy instantaneamente após a linha chegar, ou faz crescer in-place
+                nodeCircle
+                    .attr('cx', n.x).attr('cy', n.y)
+                    .transition().duration(600).delay(delay + 500).ease(d3.easeBackOut)
+                    .attr('r', n.r)
+                    .attr('fill', 'rgba(255,255,255,1)')
+                    .attr('filter', 'url(#glow)');
+                    
+                n.nodeElem = nodeCircle;
+                
+                // Partícula de dados pulsante (tráfego da rede)
+                const packet = linksG.append('circle')
+                    .attr('r', 4)
+                    .attr('fill', '#ffffff')
+                    .attr('opacity', 0)
+                    .attr('filter', 'url(#glow)');
+                    
+                n.packetElem = packet;
+            });
+            
+            // Conexões secundárias (Rede entre os nós)
+            const secLinks = [];
+            for (let i = 0; i < numNodes; i++) {
+                // Conecta com o próximo, e com i+3 para teia complexa
+                const targets = [(i + 1) % numNodes, (i + 3) % numNodes];
+                
+                targets.forEach(t => {
+                    const n1 = nodes[i];
+                    const n2 = nodes[t];
+                    const slink = linksG.append('line')
+                        .attr('stroke', accent)
+                        .attr('stroke-width', 0.8)
+                        .attr('opacity', 0);
+                    secLinks.push({ n1, n2, elem: slink });
+                    
+                    slink.transition().duration(1500).delay(3500 + i * 80).attr('opacity', 0.25);
+                });
+            }
+
+            // 3. Fase 2: Loop Interno Perpétuo (Orbita, Pulsação e Fluxo)
+            let time = 0;
+            d3.timer((elapsed) => {
+                time += 0.01;
+                
+                // Pulso do núcleo principal
+                const pulseScale = Math.sin(elapsed * 0.002);
+                coreCircle.attr('r', core.r + pulseScale * 4);
+                coreGlow.attr('r', 180 + pulseScale * 25);
+                
+                // Rotação orgânica e atualização da malha
+                nodes.forEach(n => {
+                    if (!n.connected) return;
+                    
+                    // Movimento orbital leve
+                    n.angle += n.speed;
+                    // Respiração da distância (efeito elástico)
+                    n.distance = n.baseDistance + Math.sin(time * 1.5 + n.id) * 12;
+                    
+                    n.x = cx + Math.cos(n.angle) * n.distance;
+                    n.y = cy + Math.sin(n.angle) * n.distance;
+                    
+                    n.nodeElem.attr('cx', n.x).attr('cy', n.y);
+                    n.linkElem.attr('x2', n.x).attr('y2', n.y);
+                    
+                    // Fluxo de dados (partículas trafegando entre centro e extremidade)
+                    // Normalizamos o tempo para um ciclo (0 -> 1)
+                    const packetCycle = (elapsed * 0.0008 + n.id * 0.15) % 1;
+                    const easedT = d3.easeCubicInOut(packetCycle);
+                    
+                    const px = cx + (n.x - cx) * easedT;
+                    const py = cy + (n.y - cy) * easedT;
+                    
+                    // Aparece forte no meio do caminho, some nas pontas
+                    const packetOpacity = Math.sin(easedT * Math.PI) * 0.9;
+                    
+                    n.packetElem
+                        .attr('cx', px).attr('cy', py)
+                        .attr('opacity', packetOpacity);
+                        
+                    // Pulso individual de cada nó da constelação
+                    n.nodeElem.attr('r', n.r + Math.sin(elapsed * 0.004 + n.id) * 1.5);
+                });
+                
+                // Acompanhar posições para as conexões da teia secundária
+                secLinks.forEach(link => {
+                    if (link.n1.connected && link.n2.connected) {
+                        link.elem
+                            .attr('x1', link.n1.x).attr('y1', link.n1.y)
+                            .attr('x2', link.n2.x).attr('y2', link.n2.y);
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
