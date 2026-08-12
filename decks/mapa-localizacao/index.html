@@ -543,33 +543,245 @@
         <p class="text-white/40 text-xs italic">* Dados atualizados em 02/08/2026</p>
     </div>
 </div>
-<div class="glass-card rounded-xl p-4 w-full max-w-5xl" data-aos="zoom-in" data-aos-delay="500">
-    <div class="rounded-lg overflow-hidden border border-white/10 mb-4 relative">
-        <img src="assets/mapa_localizacao.jpg" alt="Visão Estratégica do Mapa"
-            class="w-full h-auto object-cover opacity-90 hover:opacity-100 transition-opacity">
-            
-        <!-- Ponto Animado de Localização -->
-        <div class="absolute group" style="top: 59.3%; left: 54.9%; transform: translate(-50%, -50%);">
-            <!-- Ponto Fixo -->
-            <div class="w-4 h-4 bg-[#FF904D] rounded-full relative z-10 shadow-[0_0_15px_#FF904D]"></div>
-            <!-- Pulso (Animação) -->
-            <div class="w-10 h-10 bg-[#FF904D] rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-ping opacity-60"></div>
-            
-            <!-- Tooltip Hover com as Coordenadas -->
-            <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-max px-4 py-2 bg-black/90 backdrop-blur-sm border border-[#FF904D]/50 text-white text-xs font-mono rounded shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-20">
-                <div class="text-[#FF904D] font-bold mb-1 uppercase text-[10px] tracking-wider">Localização Exata</div>
-                <span>Lat: 8966829.35 m S<br>Lon: 212944.92 m E</span>
-            </div>
+<div class="glass-card rounded-xl w-full max-w-5xl overflow-hidden relative" data-aos="zoom-in" data-aos-delay="500" style="min-height: 550px; display: flex; align-items: center; justify-content: center; padding: 0;">
+    
+    <!-- Container for 3D Globe -->
+    <div id="globe-container" class="absolute inset-0 w-full h-full z-0 cursor-move"></div>
+
+    <!-- Pílulas de Dados (Data Pills) overlay -->
+    <div class="absolute top-8 left-8 z-10 flex flex-col gap-4 pointer-events-none">
+        <div class="bg-black/60 backdrop-blur-md border border-white/10 px-6 py-3 rounded-full flex items-center gap-3 shadow-[0_4_20px_rgba(255,144,77,0.15)] transition-transform duration-500 hover:scale-105 pointer-events-auto">
+            <div class="w-2 h-2 rounded-full bg-[#FF904D] animate-pulse"></div>
+            <span class="text-white font-bold tracking-wide">237,43 Hectares</span>
+        </div>
+        <div class="bg-[#FF904D]/15 backdrop-blur-md border border-[#FF904D]/30 px-6 py-3 rounded-full flex items-center gap-3 shadow-[0_4_20px_rgba(255,144,77,0.25)] transition-transform duration-500 hover:scale-105 pointer-events-auto">
+            <i data-lucide="map-pin" class="w-4 h-4 text-[#FF904D]"></i>
+            <span class="text-[#FF904D] font-bold tracking-wide">Região Agrícola de Rio Sono</span>
         </div>
     </div>
 
-    <div class="px-2 pb-2">
+    <!-- Overlay gradients para dar profundidade e integrar com o fundo -->
+    <div class="absolute inset-0 pointer-events-none shadow-[inset_0_0_150px_rgba(0,0,0,0.9)] z-0 rounded-xl"></div>
+
+    <div class="absolute bottom-6 left-8 z-10 bg-black/50 backdrop-blur-md border border-white/10 px-5 py-3 rounded-xl pointer-events-none shadow-lg">
         <div class="flex items-center gap-2 mb-1">
-            <i data-lucide="image" class="w-4 h-4 primary-color"></i>
-            <span class="text-xs font-bold uppercase tracking-wider text-white/60">Visualização</span>
+            <i data-lucide="globe" class="w-4 h-4 text-[#FF904D]"></i>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-white/60">Globo Interativo</span>
         </div>
-        <p class="text-white/90 font-medium">Visão Estratégica do Mapa em escala 1:22.000 delimitando a área excedente.</p>
+        <p class="text-white/90 font-medium text-sm">Arraste para girar. O feixe de luz indica a localização exata.</p>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('globe-container');
+            if (!container) return;
+
+            const scene = new THREE.Scene();
+            
+            // Camera
+            const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.z = 220;
+            camera.position.y = 20;
+
+            // Renderer
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+
+            const globeGroup = new THREE.Group();
+            scene.add(globeGroup);
+
+            // Textures
+            const textureLoader = new THREE.TextureLoader();
+            const earthTexture = textureLoader.load('https://unpkg.com/three-globe/example/img/earth-dark.jpg');
+
+            // Globe Material (Glassmorphism style)
+            const globeGeometry = new THREE.SphereGeometry(70, 64, 64);
+            const globeMaterial = new THREE.MeshPhysicalMaterial({
+                color: 0x1a1a1a,
+                map: earthTexture,
+                metalness: 0.1,
+                roughness: 0.4,
+                transmission: 0.8, // glass effect
+                opacity: 1,
+                transparent: true,
+                envMapIntensity: 1.0,
+                clearcoat: 0.5,
+                clearcoatRoughness: 0.2
+            });
+            const globe = new THREE.Mesh(globeGeometry, globeMaterial);
+            globeGroup.add(globe);
+
+            // Halo/Atmosphere
+            const haloGeo = new THREE.SphereGeometry(74, 32, 32);
+            const haloMat = new THREE.MeshBasicMaterial({
+                color: 0xFF904D,
+                transparent: true,
+                opacity: 0.05,
+                blending: THREE.AdditiveBlending,
+                side: THREE.BackSide
+            });
+            const halo = new THREE.Mesh(haloGeo, haloMat);
+            globeGroup.add(halo);
+
+            // Beacon at Rio Sono (-9.3366, -47.9022)
+            function getVectorFromLatLon(lat, lon, radius) {
+                const phi = (90 - lat) * (Math.PI / 180);
+                const theta = (lon + 180) * (Math.PI / 180);
+                const x = -(radius * Math.sin(phi) * Math.cos(theta));
+                const z = (radius * Math.sin(phi) * Math.sin(theta));
+                const y = (radius * Math.cos(phi));
+                return new THREE.Vector3(x, y, z);
+            }
+
+            const beaconPos = getVectorFromLatLon(-9.3366, -47.9022, 70);
+            
+            // Marker Point
+            const markerGeo = new THREE.SphereGeometry(1.5, 32, 32);
+            const markerMat = new THREE.MeshBasicMaterial({ color: 0xFF904D });
+            const marker = new THREE.Mesh(markerGeo, markerMat);
+            marker.position.copy(beaconPos);
+            globeGroup.add(marker);
+
+            // Light Beam
+            const beamGeo = new THREE.CylinderGeometry(0.3, 3, 50, 32);
+            beamGeo.translate(0, 25, 0); 
+            
+            const beamMat = new THREE.MeshBasicMaterial({
+                color: 0xFF904D,
+                transparent: true,
+                opacity: 0.7,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false,
+                side: THREE.DoubleSide
+            });
+            const beam = new THREE.Mesh(beamGeo, beamMat);
+            
+            const surfaceNormal = beaconPos.clone().normalize();
+            beam.position.copy(beaconPos);
+            
+            const quaternion = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), surfaceNormal);
+            beam.setRotationFromQuaternion(quaternion);
+            
+            globeGroup.add(beam);
+
+            // Rings / Ripples around the beacon
+            const ringGeo = new THREE.RingGeometry(1.5, 5, 32);
+            const ringMat = new THREE.MeshBasicMaterial({
+                color: 0xFF904D,
+                transparent: true,
+                opacity: 0.8,
+                side: THREE.DoubleSide,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+            const ring = new THREE.Mesh(ringGeo, ringMat);
+            ring.position.copy(beaconPos);
+            // Align ring flat to the surface
+            ring.lookAt(beaconPos.clone().add(surfaceNormal));
+            globeGroup.add(ring);
+
+            // Lights
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+            scene.add(ambientLight);
+
+            const pointLight = new THREE.PointLight(0xFF904D, 5, 300);
+            pointLight.position.set(150, 100, 150);
+            scene.add(pointLight);
+
+            const pointLight2 = new THREE.PointLight(0x4444ff, 3, 300);
+            pointLight2.position.set(-150, -100, -150);
+            scene.add(pointLight2);
+
+            // Interaction
+            let isDragging = false;
+            let previousMousePosition = { x: 0, y: 0 };
+            
+            container.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                previousMousePosition = { x: e.offsetX, y: e.offsetY };
+            });
+            
+            window.addEventListener('mouseup', () => { isDragging = false; });
+            window.addEventListener('mouseleave', () => { isDragging = false; });
+            
+            window.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    const deltaMove = {
+                        x: e.offsetX - previousMousePosition.x,
+                        y: e.offsetY - previousMousePosition.y
+                    };
+                    
+                    globeGroup.rotation.y += deltaMove.x * 0.005;
+                    globeGroup.rotation.x += deltaMove.y * 0.005;
+                    
+                    // Limit X rotation
+                    globeGroup.rotation.x = Math.max(-Math.PI/2, Math.min(Math.PI/2, globeGroup.rotation.x));
+                    
+                    previousMousePosition = { x: e.offsetX, y: e.offsetY };
+                }
+            });
+
+            // Touch support
+            container.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            }, {passive: true});
+            
+            window.addEventListener('touchend', () => { isDragging = false; });
+            
+            window.addEventListener('touchmove', (e) => {
+                if (isDragging) {
+                    const deltaMove = {
+                        x: e.touches[0].clientX - previousMousePosition.x,
+                        y: e.touches[0].clientY - previousMousePosition.y
+                    };
+                    
+                    globeGroup.rotation.y += deltaMove.x * 0.005;
+                    globeGroup.rotation.x += deltaMove.y * 0.005;
+                    
+                    globeGroup.rotation.x = Math.max(-Math.PI/2, Math.min(Math.PI/2, globeGroup.rotation.x));
+                    
+                    previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                }
+            }, {passive: true});
+
+            // Set initial rotation so Brazil is prominent
+            globeGroup.rotation.y = -1.2;
+            globeGroup.rotation.x = 0.2;
+
+            let time = 0;
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                if(!isDragging) {
+                    globeGroup.rotation.y += 0.0015; // smooth perpetual loop
+                }
+                
+                time += 0.03;
+                beam.scale.y = 1 + Math.sin(time) * 0.3;
+                beamMat.opacity = 0.5 + Math.sin(time) * 0.2;
+                
+                ring.scale.set(1 + (time % 1.5), 1 + (time % 1.5), 1);
+                ringMat.opacity = Math.max(0, 1 - (time % 1.5));
+                
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            window.addEventListener('resize', () => {
+                if(!container) return;
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+            
+            // Re-render Lucide icons if applicable
+            setTimeout(() => { if(window.lucide) window.lucide.createIcons(); }, 100);
+        });
+    </script>
 </div>
 <!-- CARD CTA: [TITULO] -->
 <div class="glass-card rounded-2xl p-12 w-full max-w-3xl text-center bg-gradient-to-br from-[#FF904D]/10 to-transparent border border-[#FF904D]/30"
