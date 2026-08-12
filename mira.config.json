@@ -31,6 +31,12 @@
       "template": "mira-default",
       "theme": "mira-dark",
       "createdAt": "2026-08-02T10:34:29.131Z"
+    },
+    {
+      "name": "fazenda-rio-sono",
+      "template": "mira-default",
+      "theme": "mira-dark",
+      "createdAt": "2026-08-11T21:46:07.000Z"
     }
   ],
   "version": "0.1.50",

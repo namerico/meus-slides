@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Fazenda Rio Sono - MATOPIBA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mira-primary: #FF904D;
+        }
+        body {
+            background: #000000;
+            min-height: 100vh;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        .mira-primary-text { color: var(--mira-primary); }
+        .mira-primary-bg { background: var(--mira-primary); }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(255, 144, 77, 0.15);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .slide-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+        /* Canvas para partículas */
+        #wind-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+        #globe-container {
+            width: 100%;
+            height: 400px;
+            position: relative;
+        }
+        #balance-container, #utm-container, #survey-container {
+            width: 100%;
+            height: 350px;
+        }
+        /* Navigation dot */
+        #nav-dot {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 50;
+        }
+        .dot {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .dot.active {
+            background: var(--mira-primary);
+            transform: scale(1.4);
+            box-shadow: 0 0 10px var(--mira-primary);
+        }
+        .dot:hover {
+            background: rgba(255, 144, 77, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <!-- Wind animation background -->
+    <canvas id="wind-canvas"></canvas>
+    
+    <!-- Navigation -->
+    <div id="nav-dot"></div>
+
+    <!-- Slide 1 -->
+    <section class="slide-container" id="slide1">
+        <div class="glass-card text-center relative z-10" data-aos="zoom-in">
+            <span class="inline-block bg-[#FF904D]/20 text-[#FF904D] text-xs md:text-sm font-bold px-4 py-2 rounded-full mb-6 uppercase tracking-[0.2em] border border-[#FF904D]/30">
+                Oportunidade de Investimento
+            </span>
+            <h1 class="text-4xl md:text-7xl font-black mb-6 leading-tight">O Futuro do Agronegócio no <br><span class="mira-primary-text">MATOPIBA</span></h1>
+            <p class="text-xl md:text-2xl text-white/80 font-light">Fazenda Rio Sono – Tocantins: 237,43 Hectares de Pura Oportunidade</p>
+        </div>
+    </section>
+
+    <!-- Slide 2 -->
+    <section class="slide-container" id="slide2">
+        <div class="glass-card relative z-10" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold mb-3">Localização Estratégica e Conectividade</h2>
+            <p class="text-lg text-white/70 mb-8 font-light">No coração da nova fronteira agrícola do Norte do Brasil</p>
+            
+            <div class="relative w-full rounded-xl overflow-hidden bg-black/60 border border-white/10 shadow-2xl">
+                <div id="globe-container"></div>
+                <!-- Data Pills -->
+                <div class="absolute top-6 left-6 flex flex-col gap-3 pointer-events-none">
+                    <div class="bg-black/60 backdrop-blur-md border border-white/10 px-5 py-2.5 rounded-full flex items-center gap-3">
+                        <i data-lucide="map" class="w-4 h-4 text-[#FF904D]"></i>
+                        <span class="text-white text-sm font-bold tracking-wide">DATUM SIRGAS 2000</span>
+                    </div>
+                    <div class="bg-[#FF904D]/20 backdrop-blur-md border border-[#FF904D]/30 px-5 py-2.5 rounded-full flex items-center gap-3">
+                        <div class="w-2.5 h-2.5 rounded-full bg-[#FF904D] animate-pulse shadow-[0_0_8px_#FF904D]"></div>
+                        <span class="text-[#FF904D] text-sm font-bold tracking-wide">Rio Sono, TO</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3 -->
+    <section class="slide-container" id="slide3">
+        <div class="glass-card text-center relative z-10" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold mb-3">Versatilidade e Dupla Aptidão</h2>
+            <p class="text-lg text-white/70 mb-8 font-light max-w-2xl mx-auto">Solo ideal para transição perfeita entre agricultura e pecuária de alta performance</p>
+            
+            <div id="balance-container" class="bg-black/40 rounded-xl border border-white/10 shadow-inner"></div>
+        </div>
+    </section>
+
+    <!-- Slide 4 -->
+    <section class="slide-container" id="slide4">
+        <div class="glass-card relative z-10" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold mb-3">Precisão Cartográfica e Prontidão Jurídica</h2>
+            <p class="text-lg text-white/70 mb-8 font-light">Propriedade 100% georreferenciada e pronta para transferência</p>
+            
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="w-full md:w-1/2 bg-black/50 rounded-xl border border-white/10 overflow-hidden relative shadow-inner">
+                    <div id="utm-container"></div>
+                </div>
+                <div class="w-full md:w-1/2 flex flex-col justify-center gap-5" id="utm-table" style="opacity:0; filter:blur(10px); transition: all 1s ease;">
+                    <div class="bg-white/5 p-5 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i data-lucide="maximize" class="w-5 h-5 text-[#FF904D]"></i>
+                            <p class="text-[#FF904D] text-xs font-bold uppercase tracking-wider">Área Total</p>
+                        </div>
+                        <p class="text-3xl font-black">237,43 <span class="text-xl text-white/50 font-normal">ha</span></p>
+                    </div>
+                    <div class="bg-white/5 p-5 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i data-lucide="ruler" class="w-5 h-5 text-[#FF904D]"></i>
+                            <p class="text-[#FF904D] text-xs font-bold uppercase tracking-wider">Perímetro UTM</p>
+                        </div>
+                        <p class="text-3xl font-black">6.840 <span class="text-xl text-white/50 font-normal">m</span></p>
+                    </div>
+                    <div class="bg-white/5 p-5 rounded-xl border border-[#FF904D]/30 bg-gradient-to-r from-[#FF904D]/10 to-transparent">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i data-lucide="file-check" class="w-5 h-5 text-[#FF904D]"></i>
+                            <p class="text-[#FF904D] text-xs font-bold uppercase tracking-wider">Status Legal</p>
+                        </div>
+                        <p class="text-2xl font-bold">Livre e Desembaraçada</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5 -->
+    <section class="slide-container" id="slide5">
+        <div class="glass-card text-center relative z-10" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold mb-3">Qual a sua tese de investimento para esta área?</h2>
+            <p class="text-lg text-white/70 mb-10 font-light">Escaneie o código e participe da nossa projeção de mercado em tempo real.</p>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center gap-12">
+                <div class="bg-white p-6 rounded-2xl shadow-[0_0_30px_rgba(255,144,77,0.3)] transform transition hover:scale-105">
+                    <div id="qrcode"></div>
+                    <p class="text-black font-bold mt-4 text-sm uppercase tracking-widest text-center">Acesse Aqui</p>
+                </div>
+                <div class="w-full md:w-1/2" id="survey-container"></div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        AOS.init({ duration: 800, once: true, offset: 100 });
+        lucide.createIcons();
+
+        // 1. Wind Particles Animation (Perpetual Background Loop)
+        const canvas = document.getElementById('wind-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < 70; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    len: Math.random() * 100 + 30,
+                    speed: Math.random() * 2 + 0.5,
+                    opacity: Math.random() * 0.3 + 0.05
+                });
+            }
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function drawWind() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.lineWidth = 1.5;
+            ctx.lineCap = 'round';
+            for (let p of particles) {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p.x + p.len, p.y);
+                ctx.strokeStyle = `rgba(255, 144, 77, ${p.opacity})`;
+                ctx.stroke();
+                
+                p.x += p.speed;
+                if (p.x > canvas.width) {
+                    p.x = -p.len;
+                    p.y = Math.random() * canvas.height;
+                }
+            }
+            requestAnimationFrame(drawWind);
+        }
+        drawWind();
+
+        // 2. 3D Globe with Beacon
+        function initGlobe() {
+            const container = document.getElementById('globe-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.z = 180;
+
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+
+            const globeGroup = new THREE.Group();
+            scene.add(globeGroup);
+
+            // Wireframe Globe
+            const globeGeo = new THREE.SphereGeometry(60, 48, 48);
+            const globeMat = new THREE.MeshPhongMaterial({
+                color: 0x111111,
+                emissive: 0x050505,
+                specular: 0x222222,
+                transparent: true,
+                opacity: 0.7,
+                wireframe: true,
+                wireframeLinewidth: 1
+            });
+            const globe = new THREE.Mesh(globeGeo, globeMat);
+            globeGroup.add(globe);
+
+            // Inner dark sphere
+            const innerGlobe = new THREE.Mesh(new THREE.SphereGeometry(59, 32, 32), new THREE.MeshBasicMaterial({color: 0x000000}));
+            globeGroup.add(innerGlobe);
+
+            // Beacon coordinates mapping
+            function latLonToVector3(lat, lon, radius) {
+                const phi = (90 - lat) * (Math.PI / 180);
+                const theta = (lon + 180) * (Math.PI / 180);
+                return new THREE.Vector3(
+                    -(radius * Math.sin(phi) * Math.cos(theta)),
+                    radius * Math.cos(phi),
+                    radius * Math.sin(phi) * Math.sin(theta)
+                );
+            }
+            
+            const pos = latLonToVector3(-9.3366, -47.9022, 60);
+            
+            // Beacon Point
+            const beacon = new THREE.Mesh(
+                new THREE.SphereGeometry(2, 16, 16), 
+                new THREE.MeshBasicMaterial({ color: 0xFF904D })
+            );
+            beacon.position.copy(pos);
+            globeGroup.add(beacon);
+
+            // Glowing Beam
+            const beamGeo = new THREE.CylinderGeometry(0.3, 3, 50, 16);
+            beamGeo.translate(0, 25, 0);
+            const beamMat = new THREE.MeshBasicMaterial({
+                color: 0xFF904D,
+                transparent: true,
+                opacity: 0.6,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false
+            });
+            const beam = new THREE.Mesh(beamGeo, beamMat);
+            beam.position.copy(pos);
+            beam.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), pos.clone().normalize());
+            globeGroup.add(beam);
+
+            // Rings
+            const ring = new THREE.Mesh(
+                new THREE.RingGeometry(2.5, 6, 32),
+                new THREE.MeshBasicMaterial({
+                    color: 0xFF904D, transparent: true, opacity: 0.8, side: THREE.DoubleSide, blending: THREE.AdditiveBlending
+                })
+            );
+            ring.position.copy(pos);
+            ring.lookAt(pos.clone().multiplyScalar(2));
+            globeGroup.add(ring);
+
+            // Lights
+            scene.add(new THREE.AmbientLight(0xffffff, 0.3));
+            const pLight = new THREE.PointLight(0xFF904D, 3);
+            pLight.position.set(100, 100, 100);
+            scene.add(pLight);
+
+            // Orientation focusing South America
+            globeGroup.rotation.y = -0.7;
+            globeGroup.rotation.x = 0.2;
+
+            let time = 0;
+            function animate() {
+                requestAnimationFrame(animate);
+                globeGroup.rotation.y += 0.002;
+                time += 0.05;
+                beamMat.opacity = 0.3 + Math.sin(time) * 0.4;
+                beam.scale.y = 1 + Math.sin(time) * 0.15;
+                ring.scale.set(1+(time%2), 1+(time%2), 1);
+                ring.material.opacity = Math.max(0, 1 - (time%2));
+                renderer.render(scene, camera);
+            }
+            animate();
+            
+            window.addEventListener('resize', () => {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+        }
+        initGlobe();
+
+        // 3. Digital Balance (Animated Metaphor)
+        function initBalance() {
+            const container = document.getElementById('balance-container');
+            const svg = d3.select(container).append('svg')
+                .attr('width', '100%')
+                .attr('height', '100%')
+                .attr('viewBox', '0 0 800 350');
+            
+            const cx = 400, cy = 230;
+            
+            // Base Pyramid
+            svg.append('path')
+                .attr('d', `M${cx},${cy} L${cx-40},${cy+100} L${cx+40},${cy+100} Z`)
+                .attr('fill', 'rgba(255,144,77,0.05)')
+                .attr('stroke', '#FF904D')
+                .attr('stroke-width', 2);
+            svg.append('circle').attr('cx', cx).attr('cy', cy).attr('r', 8).attr('fill', '#FF904D');
+                
+            // Beam Group
+            const beamGroup = svg.append('g').attr('transform', `translate(${cx}, ${cy})`);
+            
+            // Beam Line
+            beamGroup.append('rect')
+                .attr('x', -260).attr('y', -4).attr('width', 520).attr('height', 8).attr('rx', 4)
+                .attr('fill', '#FF904D');
+                
+            // Left Plate (Agricultura/Soja)
+            const leftPlate = beamGroup.append('g').attr('transform', `translate(-240, -110)`);
+            leftPlate.append('line').attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', 110).attr('stroke', '#FF904D').attr('stroke-width', 2);
+            leftPlate.append('circle').attr('r', 45).attr('fill', 'rgba(255,144,77,0.15)').attr('stroke', '#FF904D').attr('stroke-width', 2);
+            // Soja icon
+            leftPlate.append('path').attr('d', 'M-15,10 Q0,-15 15,10 Q0,20 -15,10 Z').attr('fill', '#FF904D');
+            leftPlate.append('path').attr('d', 'M-5,-10 Q10,-25 25,0 Q10,10 -5,-10 Z').attr('fill', '#FF904D');
+            leftPlate.append('text').text('Agricultura').attr('fill', 'white').attr('text-anchor', 'middle').attr('dy', 70).attr('font-weight', 'bold').attr('font-size', '16px');
+            
+            // Right Plate (Pecuária/Pasto)
+            const rightPlate = beamGroup.append('g').attr('transform', `translate(240, -110)`);
+            rightPlate.append('line').attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', 110).attr('stroke', '#FF904D').attr('stroke-width', 2);
+            rightPlate.append('circle').attr('r', 45).attr('fill', 'rgba(255,144,77,0.15)').attr('stroke', '#FF904D').attr('stroke-width', 2);
+            // Grass icon
+            rightPlate.append('path').attr('d', 'M-20,15 L-10,-5 L0,15 L10,-10 L20,15').attr('fill', 'none').attr('stroke', '#FF904D').attr('stroke-width', 4).attr('stroke-linejoin', 'round');
+            rightPlate.append('text').text('Pecuária').attr('fill', 'white').attr('text-anchor', 'middle').attr('dy', 70).attr('font-weight', 'bold').attr('font-size', '16px');
+            
+            // Perpetual Animation
+            function swing() {
+                beamGroup.transition().duration(3000).ease(d3.easeSinInOut)
+                    .attr('transform', `translate(${cx}, ${cy}) rotate(7)`)
+                    .transition().duration(3000).ease(d3.easeSinInOut)
+                    .attr('transform', `translate(${cx}, ${cy}) rotate(-7)`)
+                    .on('end', swing);
+            }
+            swing();
+        }
+        initBalance();
+
+        // 4. UTM Topography Drawing
+        function initUTM() {
+            const container = document.getElementById('utm-container');
+            const svg = d3.select(container).append('svg')
+                .attr('width', '100%')
+                .attr('height', '100%')
+                .attr('viewBox', '0 0 400 350');
+                
+            // Grid
+            for(let i=0; i<=400; i+=25) {
+                svg.append('line').attr('x1', i).attr('y1', 0).attr('x2', i).attr('y2', 350).attr('stroke', 'rgba(255,255,255,0.06)');
+                svg.append('line').attr('x1', 0).attr('y1', i).attr('x2', 400).attr('y2', i).attr('stroke', 'rgba(255,255,255,0.06)');
+            }
+
+            // Crosshairs
+            svg.append('path').attr('d', 'M200,10 L200,340 M10,175 L390,175').attr('stroke', 'rgba(255,144,77,0.3)').attr('stroke-dasharray', '5,5');
+                
+            const points = [
+                [120, 280], [280, 300], [330, 160], [240, 60], [100, 100], [120, 280]
+            ];
+            
+            const line = d3.line().curve(d3.curveLinearClosed);
+            
+            const path = svg.append('path')
+                .datum(points)
+                .attr('d', line)
+                .attr('fill', 'none')
+                .attr('stroke', '#FF904D')
+                .attr('stroke-width', 3)
+                .attr('stroke-linejoin', 'round');
+                
+            const totalLength = path.node().getTotalLength();
+            path.attr('stroke-dasharray', totalLength + ' ' + totalLength)
+                .attr('stroke-dashoffset', totalLength);
+                
+            let animated = false;
+            const observer = new IntersectionObserver(entries => {
+                if(entries[0].isIntersecting && !animated) {
+                    animated = true;
+                    // Choreographed Drawing
+                    path.transition().duration(4000).ease(d3.easeCubicInOut)
+                        .attr('stroke-dashoffset', 0)
+                        .on('end', () => {
+                            // Area fill and table reveal
+                            path.transition().duration(1000).attr('fill', 'rgba(255,144,77,0.25)');
+                            document.getElementById('utm-table').style.opacity = '1';
+                            document.getElementById('utm-table').style.filter = 'blur(0px)';
+                            
+                            // Pulse vertex points
+                            svg.selectAll('circle.vertex')
+                                .data(points.slice(0,5))
+                                .enter().append('circle')
+                                .attr('class', 'vertex')
+                                .attr('cx', d=>d[0]).attr('cy', d=>d[1]).attr('r', 5).attr('fill', '#fff')
+                                .attr('opacity', 0)
+                                .transition().delay((d,i)=>i*200).duration(400).attr('opacity', 1)
+                                .on('end', function loopPoint() {
+                                    d3.select(this).transition().duration(1000).attr('r', 8).attr('fill', '#FF904D')
+                                      .transition().duration(1000).attr('r', 5).attr('fill', '#fff')
+                                      .on('end', loopPoint);
+                                });
+                        });
+                }
+            }, {threshold: 0.5});
+            observer.observe(container);
+        }
+        initUTM();
+
+        // 5. Live Survey Donut
+        function initSurvey() {
+            new QRCode(document.getElementById("qrcode"), {
+                text: "https://mira.invest/rio-sono",
+                width: 160,
+                height: 160,
+                colorDark : "#000000",
+                colorLight : "#ffffff"
+            });
+
+            const data = [
+                {label: "Agrícola", value: 45},
+                {label: "Pecuária", value: 30},
+                {label: "Valorização", value: 25}
+            ];
+
+            const container = document.getElementById('survey-container');
+            const width = container.clientWidth, height = 350;
+            const radius = Math.min(width, height) / 2 - 20;
+            
+            const svg = d3.select(container).append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .append("g")
+                .attr("transform", `translate(${width/2},${height/2})`);
+
+            const color = d3.scaleOrdinal()
+                .domain(data.map(d => d.label))
+                .range(["#FF904D", "#FF7020", "#FFB347"]); // Palette of oranges
+
+            const pie = d3.pie().value(d => d.value).sort(null);
+            let data_ready = pie(data);
+
+            const arc = d3.arc().innerRadius(radius * 0.55).outerRadius(radius * 0.9);
+            const outerArc = d3.arc().innerRadius(radius * 0.95).outerRadius(radius * 0.95);
+            
+            const arcs = svg.selectAll('allSlices').data(data_ready).enter();
+            
+            const paths = arcs.append('path')
+                .attr('d', arc)
+                .attr('fill', d => color(d.data.label))
+                .attr('stroke', '#000')
+                .style('stroke-width', '4px')
+                .style('opacity', 0);
+                
+            const texts = arcs.append('text')
+                .text(d => `${d.data.label} (${d.data.value}%)`)
+                .attr("transform", function(d) {
+                    const pos = outerArc.centroid(d);
+                    pos[0] = radius * (midAngle(d) < Math.PI ? 1.05 : -1.05);
+                    return "translate(" + pos + ")";
+                })
+                .style("text-anchor", function(d) {
+                    return midAngle(d) < Math.PI ? "start" : "end";
+                })
+                .style("font-size", "14px")
+                .style('fill', 'white')
+                .style('font-weight', 'bold')
+                .style('opacity', 0);
+                
+            const polylines = arcs.append('polyline')
+                .attr("stroke", "white")
+                .style("fill", "none")
+                .attr("stroke-width", 1)
+                .style("opacity", 0)
+                .attr("points", function(d) {
+                    const posA = arc.centroid(d);
+                    const posB = outerArc.centroid(d);
+                    const posC = outerArc.centroid(d);
+                    posC[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
+                    return [posA, posB, posC];
+                });
+                
+            function midAngle(d){
+                return d.startAngle + (d.endAngle - d.startAngle)/2;
+            }
+
+            let animated = false;
+            const observer = new IntersectionObserver(entries => {
+                if(entries[0].isIntersecting && !animated) {
+                    animated = true;
+                    paths.transition().duration(1500).style('opacity', 1)
+                        .attrTween('d', function(d) {
+                            const i = d3.interpolate({startAngle: 0, endAngle: 0}, d);
+                            return function(t) { return arc(i(t)); }
+                        })
+                        .on('end', () => {
+                            texts.transition().duration(500).style('opacity', 1);
+                            polylines.transition().duration(500).style('opacity', 0.5);
+                            
+                            // Dynamic real-time vote simulation
+                            setInterval(() => {
+                                data.forEach(d => {
+                                    d.value += Math.floor(Math.random() * 9) - 4;
+                                    if(d.value < 10) d.value = 10;
+                                });
+                                
+                                const sum = data.reduce((a,b)=>a+b.value, 0);
+                                const new_pie = d3.pie().value(d => d.value).sort(null)(data);
+                                
+                                paths.data(new_pie).transition().duration(1000).attr('d', arc);
+                                
+                                texts.data(new_pie).transition().duration(1000)
+                                    .attr("transform", function(d) {
+                                        const pos = outerArc.centroid(d);
+                                        pos[0] = radius * (midAngle(d) < Math.PI ? 1.05 : -1.05);
+                                        return "translate(" + pos + ")";
+                                    })
+                                    .style("text-anchor", function(d) {
+                                        return midAngle(d) < Math.PI ? "start" : "end";
+                                    })
+                                    .text(d => `${d.data.label} (${Math.round((d.data.value/sum)*100)}%)`);
+                                    
+                                polylines.data(new_pie).transition().duration(1000)
+                                    .attr("points", function(d) {
+                                        const posA = arc.centroid(d);
+                                        const posB = outerArc.centroid(d);
+                                        const posC = outerArc.centroid(d);
+                                        posC[0] = radius * 0.95 * (midAngle(d) < Math.PI ? 1 : -1);
+                                        return [posA, posB, posC];
+                                    });
+                            }, 3500);
+                        });
+                }
+            });
+            observer.observe(container);
+        }
+
+        // Initialize Navigation Dots
+        const sections = document.querySelectorAll('section');
+        const navContainer = document.getElementById('nav-dot');
+        sections.forEach((s, i) => {
+            const dot = document.createElement('div');
+            dot.className = 'dot' + (i===0?' active':'');
+            dot.onclick = () => s.scrollIntoView({behavior: 'smooth'});
+            navContainer.appendChild(dot);
+        });
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - window.innerHeight / 2) {
+                    current = section.getAttribute('id');
+                }
+            });
+            document.querySelectorAll('.dot').forEach((dot, i) => {
+                dot.classList.remove('active');
+                if(sections[i].id === current) dot.classList.add('active');
+            });
+        });
+
+        setTimeout(initSurvey, 500);
+    </script>
+</body>
+</html>
